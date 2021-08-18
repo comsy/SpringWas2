@@ -1,0 +1,27 @@
+<included>
+
+    <springProperty scope="context" name="LOG_CHARSET" source="logback.config.charset"/>
+
+    <springProperty scope="context" name="LOG_FILE_PATH" source="logback.file.path"/>
+    <springProperty scope="context" name="LOG_FILE_NAME" source="logback.file.name"/>
+    <springProperty scope="context" name="LOG_FILE_PATTERN" source="logback.file.pattern"/>
+    <springProperty scope="context" name="LOG_FILE_ROLLING_PATTERN" source="logback.file.rolling_policy.file_name_pattern"/>
+    <springProperty scope="context" name="LOG_FILE_ROLLING_MAX_FILE_SIZE" source="logback.file.rolling_policy.max_file_size"/>
+    <springProperty scope="context" name="LOG_FILE_ROLLING_MAX_HISTORY" source="logback.file.rolling_policy.max_history"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH}${LOG_FILE_NAME}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}${LOG_FILE_ROLLING_PATTERN}</fileNamePattern>
+            <maxHistory>${LOG_FILE_ROLLING_MAX_HISTORY}</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_FILE_ROLLING_MAX_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>${LOG_CHARSET}</charset>
+            <pattern>${LOG_FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+</included>

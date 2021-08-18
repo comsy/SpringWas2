@@ -1,0 +1,13 @@
+<included>
+
+    <springProperty scope="context" name="LOG_CHARSET" source="logback.config.charset"/>
+    <springProperty scope="context" name="LOG_CONSOLE_PATTERN" source="logback.console.pattern"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>${LOG_CHARSET}</charset>
+            <pattern>${LOG_CONSOLE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+</included>

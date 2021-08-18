@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <include resource="log/config.xml" />
+    <include resource="log/console.xml" />
+    <include resource="log/file.xml" />
+    <include resource="log/access.xml" />
+    <include resource="log/fluency.xml" />
+
+    <springProperty scope="context" name="LOG_LEVEL" source="logging.level.root"/>
+    <springProperty scope="context" name="APACHE_LOG_LEVEL" source="logging.level.web"/>
+    <springProperty scope="context" name="SPRING_LOG_LEVEL" source="logging.level.web"/>
+    <springProperty scope="context" name="HIBERNATE_LOG_LEVEL" source="logging.level.sql"/>
+    <springProperty scope="context" name="WAS_LOG_LEVEL" source="logging.level.was"/>
+    <springProperty scope="context" name="HIKARI_LOG_LEVEL" source="logging.level.hikari"/>
+
+    <!-- ACCESS LOG -->
+    <logger name="comsy.was.interceptor.LoggingInterceptor" level="INFO" additivity="false">
+        <springProfile name="local||dev">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="ACCESS"/>
+        </springProfile>
+    </logger>
+
+    <!-- SPRING LOG -->
+    <logger name="org.apache" level="${APACHE_LOG_LEVEL}"/>
+    <logger name="org.springframework" level="${SPRING_LOG_LEVEL}"/>
+    <logger name="org.hibernate" level="${HIBERNATE_LOG_LEVEL}"/>
+    <logger name="comsy.was" level="${WAS_LOG_LEVEL}"/>
+    <logger name="com.zaxxer.hikari" level="${HIKARI_LOG_LEVEL}"/>
+
+    <!-- ROOT LOG -->
+    <root level="${LOG_LEVEL}">
+        <springProfile name="local||dev">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="FLUENCY"/>
+        </springProfile>
+    </root>
+    
+
+
+</configuration>

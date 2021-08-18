@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: "common"
+
+  task:
+    execution:
+      pool:
+        core-size: 10         # 최초에 생성할 Pool 개수
+        max-size: 50          # 몇개까지 Pool 을 생성할 것인지
+        queue-capacity: 100   # Async 처리 시 Queue Size - 설정하지 않으면 Integer.MAX 이기 때문에 성능에 문제가 발생
+      thread-name-prefix: Executor-
+
+  jpa:
+    open-in-view: false
+
+# 나중에  common 으로 이동 해야됨.
+decorator.datasource.p6spy:
+  enable-logging: true
+  multiline: true
+  logging: slf4j
+  tracing.include-parameter-values: true
