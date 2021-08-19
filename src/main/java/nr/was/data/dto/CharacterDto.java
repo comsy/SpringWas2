@@ -1,5 +1,6 @@
 package nr.was.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import nr.was.data.domain.Character;
 import nr.was.data.dtomapper.CharacterMapper;
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Builder
-public class CharacterDto implements Serializable {
+public class CharacterDto implements Serializable, DtoRoot  {
     @JsonProperty("dbKey")
     private Long id;
 
@@ -48,5 +49,10 @@ public class CharacterDto implements Serializable {
 
     public static List<Character> toEntityList(List<CharacterDto> dtoList){
         return CharacterMapper.INSTANCE.toEntityList(dtoList);
+    }
+
+    @Override
+    public String getCacheKey() {
+        return guid+":"+id;
     }
 }

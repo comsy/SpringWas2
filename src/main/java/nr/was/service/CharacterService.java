@@ -3,7 +3,9 @@ package nr.was.service;
 import nr.was.api.CharacterAddExpApi;
 import nr.was.api.CharacterFindApi;
 import nr.was.data.dao.CharacterDaoService;
+import nr.was.data.dao.UserDaoService;
 import nr.was.data.domain.Character;
+import nr.was.data.domain.User;
 import nr.was.data.dto.CharacterDto;
 import nr.was.exception.BusinessException;
 import nr.was.exception.ErrorCode;
@@ -22,10 +24,12 @@ import java.util.Optional;
 public class CharacterService {
 
     private final CharacterDaoService characterDaoService;
+    private final UserDaoService userDaoService;
 
 
     public CharacterFindApi.Response findAll(Long guid){
         List<Character> characterList = characterDaoService.getList(guid);
+        Optional<User> user = userDaoService.getEntity(guid);
 
         List<CharacterDto> characterDtoList = CharacterDto.from(characterList);
         return new CharacterFindApi.Response(200, "", characterDtoList);

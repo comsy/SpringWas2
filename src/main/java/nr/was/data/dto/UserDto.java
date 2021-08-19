@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Builder
-public class UserDto implements Serializable {
+public class UserDto implements DtoRoot, Serializable {
 
     @JsonProperty("guid")
     private Long guid;
@@ -38,5 +38,10 @@ public class UserDto implements Serializable {
 
     public static List<User> toEntityList(List<UserDto> dtoList){
         return UserMapper.INSTANCE.toEntityList(dtoList);
+    }
+
+    @Override
+    public String getCacheKey() {
+        return guid + "";
     }
 }

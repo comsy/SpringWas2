@@ -1,5 +1,6 @@
 package nr.was.data.dao;
 
+import nr.was.component.CacheSyncUtil;
 import nr.was.component.CacheUtil;
 import nr.was.data.domain.Character;
 import nr.was.data.dto.CharacterDto;
@@ -21,23 +22,21 @@ public class CharacterDaoService {
     @Resource
     private CharacterDaoService self;
 
-    private final CharacterRepository characterRepository;
-    private final CacheUtil<List<CharacterDto>> cacheUtil;
+    private final CharacterRepository repository;
+    private final CacheSyncUtil<CharacterDto> cacheSyncUtil;
 
     private String redisKey(Long guid){
-        String key = "characterList";
+        String key = "character";
         return key +"::"+guid;
     }
 
     //== CQRS : QUERY ==//
     public List<Character> getList(Long guid){
-
-        List<CharacterDto> cachedDtoList = cacheUtil.getValue(redisKey(guid));
+        List<CharacterDto> cachedDtoList = cacheSyncUtil.getDataList(redisKey(guid));
         if(cachedDtoList == null){
-            List<Character> dtoList = characterRepository.findByGuid(guid);
+            List<Character> dtoList = repository.findByGuid(guid);
             cachedDtoList = CharacterDto.from(dtoList);
-
-            cacheUtil.putValue(redisKey(guid), cachedDtoList);
+            cacheSyncUtil.addDataList(redisKey(guid), cachedDtoList, true);
         }
 
         return CharacterDto.toEntityList(cachedDtoList);
@@ -55,12 +54,18 @@ public class CharacterDaoService {
 
     //== CQRS : COMMAND ==//
     public Long saveEntity(Character entity){
-        characterRepository.save(entity);
+        repository.save(entity);
+
+        CharacterDto dto = CharacterDto.from(entity);
+        cacheSyncUtil.setData(redisKey(dto.getGuid()), dto);
 
         return entity.getId();  // [CQRS위반] 성능을위해 id는 반환
     }
 
     public void deleteEntity(Character entity){
-        characterRepository.delete(entity);
+        repository.delete(entity);
+
+        CharacterDto dto = CharacterDto.from(entity);
+        cacheSyncUtil.delDate(redisKey(dto.getGuid()), dto);
     }
 }
