@@ -1,8 +1,8 @@
-package nr.was.data.dto;
+package nr.was.data.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public interface DtoRoot {
+public interface CachedEntityInterface {
     @JsonIgnore
     String getCacheKey();
 }

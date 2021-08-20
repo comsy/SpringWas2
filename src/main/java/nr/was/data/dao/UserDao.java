@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.component.cache.CacheSyncUtil;
 import nr.was.data.domain.User;
-import nr.was.data.dto.UserDto;
 import nr.was.data.repository.master.UserRepository;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,7 @@ public class UserDao {
     private UserDao self;
 
     private final UserRepository repository;
-    private final CacheSyncUtil<UserDto> cacheSyncUtil;
+    private final CacheSyncUtil<User> cacheSyncUtil;
 
     private String redisKey(Long guid){
         String key = "user";
@@ -31,14 +30,13 @@ public class UserDao {
 
     //== CQRS : QUERY ==//
     public List<User> getList(Long guid){
-        List<UserDto> cachedDtoList = cacheSyncUtil.getDataList(redisKey(guid));
-        if(cachedDtoList == null){
-            List<User> dtoList = repository.findByGuid(guid);
-            cachedDtoList = UserDto.from(dtoList);
-            cacheSyncUtil.addDataList(redisKey(guid), cachedDtoList, true);
+        List<User> entityList = cacheSyncUtil.getEntityList(redisKey(guid));
+        if(entityList == null){
+            entityList = repository.findByGuid(guid);
+            cacheSyncUtil.addEntityList(redisKey(guid), entityList, true);
         }
 
-        return UserDto.toEntityList(cachedDtoList);
+        return entityList;
     }
 
     public Optional<User> getEntity(Long guid){
@@ -54,8 +52,7 @@ public class UserDao {
     public Long saveEntity(User entity){
         repository.save(entity);
 
-        UserDto dto = UserDto.from(entity);
-        cacheSyncUtil.setData(redisKey(dto.getGuid()), dto);
+        cacheSyncUtil.setEntity(redisKey(entity.getGuid()), entity);
 
         return entity.getGuid();  // [CQRS위반] 성능을위해 id는 반환
     }
@@ -63,7 +60,6 @@ public class UserDao {
     public void deleteEntity(User entity){
         repository.delete(entity);
 
-        UserDto dto = UserDto.from(entity);
-        cacheSyncUtil.delDate(redisKey(dto.getGuid()), dto);
+        cacheSyncUtil.delEntity(redisKey(entity.getGuid()), entity);
     }
 }

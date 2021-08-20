@@ -3,7 +3,7 @@ package nr.was.component.cache;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.data.dto.DtoRoot;
+import nr.was.data.domain.CachedEntityInterface;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -41,11 +41,11 @@ public class CacheSyncUtil<T> {
     }
 
 
-    public void addDataList(String key, List<T> dataList, Boolean dirty){
+    public void addEntityList(String key, List<T> entityList, Boolean dirty){
         Map<String, T> dataMap = new HashMap<>();
         SyncData syncData = new SyncData(key, dataMap);
 
-        dataList.forEach(syncData::setData);
+        entityList.forEach(syncData::setData);
 
         syncDataMap.put(key, syncData);
 
@@ -56,17 +56,17 @@ public class CacheSyncUtil<T> {
         log.debug("[CacheSyncUtil]addDataList 캐시싱크Map에 저장함 : " + key);
     }
 
-    public List<T> getDataList(String key){
+    public List<T> getEntityList(String key){
         SyncData syncData = syncDataMap.getOrDefault(key, null);
         if(syncData == null){
 
-            List<T> cachedDtoList = cacheManager.getCache(key);
-            if(cachedDtoList == null){
+            List<T> cachedEntityList = cacheManager.getCache(key);
+            if(cachedEntityList == null){
                 return null;
             }
             log.debug("[CacheSyncUtil]getDataList 캐시에서가져옴 : " + key);
 
-            addDataList(key, cachedDtoList, false);
+            addEntityList(key, cachedEntityList, false);
             syncData = syncDataMap.getOrDefault(key, null);
         }
         log.debug("[CacheSyncUtil]getDataList 캐시싱크Map에서 가져옴 : " + key);
@@ -74,30 +74,30 @@ public class CacheSyncUtil<T> {
         return syncData.getDataList();
     }
 
-    public void setData(String key, T data){
+    public void setEntity(String key, T entity){
         SyncData syncData = syncDataMap.getOrDefault(key, null);
         if(syncData == null){
-            List<T> cachedDtoList = cacheManager.getCache(key);
+            List<T> cachedEntityList = cacheManager.getCache(key);
             // 캐시에 없을 때는 빈채로 SyncData 생성
-            if(cachedDtoList == null){
-                cachedDtoList = new ArrayList<>();
-                addDataList(key, cachedDtoList, false);
+            if(cachedEntityList == null){
+                cachedEntityList = new ArrayList<>();
+                addEntityList(key, cachedEntityList, false);
             }
 
             syncData = syncDataMap.getOrDefault(key, null);
         }
 
-        syncData.setData(data);
+        syncData.setData(entity);
         syncData.setDirty();
     }
 
-    public void delDate(String key, T data){
+    public void delEntity(String key, T entity){
         SyncData syncData = syncDataMap.getOrDefault(key, null);
         if(syncData == null){
             return;
         }
 
-        syncData.delData(data);
+        syncData.delData(entity);
         syncData.setDirty();
     }
 
@@ -133,13 +133,13 @@ public class CacheSyncUtil<T> {
         }
 
         public void setData(T data){
-            DtoRoot dtoRoot = (DtoRoot) data;
-            dataMap.put(dtoRoot.getCacheKey(), data);
+            CachedEntityInterface cachedEntity = (CachedEntityInterface) data;
+            dataMap.put(cachedEntity.getCacheKey(), data);
         }
 
         public void delData(T data){
-            DtoRoot dtoRoot = (DtoRoot) data;
-            dataMap.remove(dtoRoot.getCacheKey());
+            CachedEntityInterface cachedEntity = (CachedEntityInterface) data;
+            dataMap.remove(cachedEntity.getCacheKey());
         }
 
         public void setDirty() {

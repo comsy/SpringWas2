@@ -12,9 +12,8 @@ import java.io.Serializable;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 @Builder
-public class CharacterDto implements Serializable, DtoRoot  {
+public class CharacterDto implements Serializable {
     @JsonProperty("dbKey")
     private Long id;
 
@@ -33,8 +32,6 @@ public class CharacterDto implements Serializable, DtoRoot  {
     @JsonProperty("exp")
     private int exp;
 
-
-
     public static CharacterDto from(Character entity){
         return CharacterMapper.INSTANCE.toDto(entity);
     }
@@ -49,10 +46,5 @@ public class CharacterDto implements Serializable, DtoRoot  {
 
     public static List<Character> toEntityList(List<CharacterDto> dtoList){
         return CharacterMapper.INSTANCE.toEntityList(dtoList);
-    }
-
-    @Override
-    public String getCacheKey() {
-        return guid+":"+id;
     }
 }

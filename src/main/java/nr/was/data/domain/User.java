@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)      // 빌더 패턴으로만 new 하기 위함.
 @AllArgsConstructor(access = AccessLevel.PROTECTED)     // 빌더 패턴으로만 new 하기 위함.
 @Builder
-public class User {
+public class User implements CachedEntityInterface {
 
     @Id
     @GeneratedValue
@@ -22,4 +22,10 @@ public class User {
 
     @Column(length = 45)
     private String pmName;
+
+
+    @Override
+    public String getCacheKey() {
+        return guid + "";
+    }
 }
