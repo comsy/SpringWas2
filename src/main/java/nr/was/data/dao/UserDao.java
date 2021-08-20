@@ -2,24 +2,24 @@ package nr.was.data.dao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.component.CacheSyncUtil;
+import nr.was.component.cache.CacheSyncUtil;
 import nr.was.data.domain.User;
 import nr.was.data.dto.UserDto;
 import nr.was.data.repository.master.UserRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 @RequiredArgsConstructor
 @Slf4j
-public class UserDaoService {
+public class UserDao {
 
     // self-autowired
     @Resource
-    private UserDaoService self;
+    private UserDao self;
 
     private final UserRepository repository;
     private final CacheSyncUtil<UserDto> cacheSyncUtil;
@@ -42,7 +42,6 @@ public class UserDaoService {
     }
 
     public Optional<User> getEntity(Long guid){
-        // 같은 클래스 내의 메소드 호출 시 Cacheable 자동 주입.
         List<User> dtoList = self.getList(guid);
 
         // 실수 방지를 위해 Optional로  return

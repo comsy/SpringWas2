@@ -2,7 +2,7 @@ package nr.was.aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.component.CacheSyncUtil;
+import nr.was.component.cache.CacheSyncUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;

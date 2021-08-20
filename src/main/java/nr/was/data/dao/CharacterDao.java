@@ -1,26 +1,25 @@
 package nr.was.data.dao;
 
-import nr.was.component.CacheSyncUtil;
-import nr.was.component.CacheUtil;
+import nr.was.component.cache.CacheSyncUtil;
 import nr.was.data.domain.Character;
 import nr.was.data.dto.CharacterDto;
 import nr.was.data.repository.master.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Component
 @RequiredArgsConstructor
 @Slf4j
-public class CharacterDaoService {
+public class CharacterDao {
 
     // self-autowired
     @Resource
-    private CharacterDaoService self;
+    private CharacterDao self;
 
     private final CharacterRepository repository;
     private final CacheSyncUtil<CharacterDto> cacheSyncUtil;
@@ -43,11 +42,10 @@ public class CharacterDaoService {
     }
 
     public Optional<Character> getEntity(Long guid, Long id){
-        // 같은 클래스 내의 메소드 호출 시 Cacheable 자동 주입.
-        List<Character> dtoList = self.getList(guid);
+        List<Character> entityList = self.getList(guid);
 
         // 실수 방지를 위해 Optional로  return
-        return dtoList.stream()
+        return entityList.stream()
                 .filter(dto -> dto.getId().equals(id))
                 .findFirst();
     }

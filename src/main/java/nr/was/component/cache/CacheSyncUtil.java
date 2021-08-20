@@ -1,10 +1,9 @@
-package nr.was.component;
+package nr.was.component.cache;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.data.dto.DtoRoot;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -23,10 +22,7 @@ import java.util.*;
 public class CacheSyncUtil<T> {
 
     private final Map<String, SyncData> syncDataMap;
-    private final CacheUtil<List<T>> cacheUtil;
-
-    @Value("${spring.redis.cache.ttl}")
-    private Long ttl;
+    private final CacheManager<List<T>> cacheManager;
 
     private String uuid;
 
@@ -49,7 +45,7 @@ public class CacheSyncUtil<T> {
         Map<String, T> dataMap = new HashMap<>();
         SyncData syncData = new SyncData(key, dataMap);
 
-        dataList.forEach(syncData::addData);
+        dataList.forEach(syncData::setData);
 
         syncDataMap.put(key, syncData);
 
@@ -64,7 +60,7 @@ public class CacheSyncUtil<T> {
         SyncData syncData = syncDataMap.getOrDefault(key, null);
         if(syncData == null){
 
-            List<T> cachedDtoList = cacheUtil.getValue(key);
+            List<T> cachedDtoList = cacheManager.getCache(key);
             if(cachedDtoList == null){
                 return null;
             }
@@ -81,7 +77,7 @@ public class CacheSyncUtil<T> {
     public void setData(String key, T data){
         SyncData syncData = syncDataMap.getOrDefault(key, null);
         if(syncData == null){
-            List<T> cachedDtoList = cacheUtil.getValue(key);
+            List<T> cachedDtoList = cacheManager.getCache(key);
             // 캐시에 없을 때는 빈채로 SyncData 생성
             if(cachedDtoList == null){
                 cachedDtoList = new ArrayList<>();
@@ -109,14 +105,14 @@ public class CacheSyncUtil<T> {
         syncDataMap.values().forEach(syncData->{
             if(syncData.getSyncState() == SyncState.DIRTY){
                 log.debug("[CacheSyncUtil]syncAll : " + syncData.getKey());
-                cacheUtil.putValue(syncData.getKey(), syncData.getDataList(), ttl);
+                cacheManager.putCache(syncData.getKey(), syncData.getDataList());
             }
         });
         syncDataMap.clear();
     }
 
     public void rollbackAll(){
-        syncDataMap.values().forEach(syncData-> cacheUtil.delete(syncData.getKey()));
+        syncDataMap.values().forEach(syncData-> cacheManager.delCache(syncData.getKey()));
         syncDataMap.clear();
     }
 
@@ -137,16 +133,6 @@ public class CacheSyncUtil<T> {
         }
 
         public void setData(T data){
-            DtoRoot dtoRoot = (DtoRoot) data;
-            if(!dataMap.containsKey(dtoRoot.getCacheKey())){
-                addData(data);
-            }
-
-            // addData, setData 가 다를게 없는데... 흠...
-            dataMap.put(dtoRoot.getCacheKey(), data);
-        }
-
-        public void addData(T data){
             DtoRoot dtoRoot = (DtoRoot) data;
             dataMap.put(dtoRoot.getCacheKey(), data);
         }
