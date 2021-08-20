@@ -3,9 +3,8 @@ package nr.was.component;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.data.domain.Character;
-import nr.was.data.dto.CharacterDto;
 import nr.was.data.dto.DtoRoot;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -25,6 +24,9 @@ public class CacheSyncUtil<T> {
 
     private final Map<String, SyncData> syncDataMap;
     private final CacheUtil<List<T>> cacheUtil;
+
+    @Value("${spring.redis.cache.ttl}")
+    private Long ttl;
 
     private String uuid;
 
@@ -107,9 +109,14 @@ public class CacheSyncUtil<T> {
         syncDataMap.values().forEach(syncData->{
             if(syncData.getSyncState() == SyncState.DIRTY){
                 log.debug("[CacheSyncUtil]syncAll : " + syncData.getKey());
-                cacheUtil.putValue(syncData.getKey(), syncData.getDataList());
+                cacheUtil.putValue(syncData.getKey(), syncData.getDataList(), ttl);
             }
         });
+        syncDataMap.clear();
+    }
+
+    public void rollbackAll(){
+        syncDataMap.values().forEach(syncData-> cacheUtil.delete(syncData.getKey()));
         syncDataMap.clear();
     }
 

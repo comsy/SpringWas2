@@ -70,6 +70,7 @@ spring:
     cache:
       host: sl-redis-01
       port: 6379
+      ttl: 86400  # 단위 초(s)
     data:
       host: sl-redis-01
       port: 6379

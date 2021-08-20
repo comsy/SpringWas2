@@ -76,4 +76,8 @@ public class CacheUtil<T> {
         redisTemplate.opsForHash().delete(key, id);
     }
     //endregion
+
+    public void delete(String key) {
+        redisTemplate.delete(key);
+    }
 }

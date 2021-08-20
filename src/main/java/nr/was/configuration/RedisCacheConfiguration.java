@@ -26,7 +26,8 @@ public class RedisCacheConfiguration {
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
 
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.setEnableTransactionSupport(true);
+        // 캐시용 이라서 트랜잭션 적용X
+        //redisTemplate.setEnableTransactionSupport(true);
         return redisTemplate;
     }
 

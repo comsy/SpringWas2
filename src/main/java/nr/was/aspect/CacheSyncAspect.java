@@ -13,12 +13,18 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CacheSyncAspect {
 
-    private final CacheSyncUtil cacheSyncUtil;
+    private final CacheSyncUtil<Object> cacheSyncUtil;
 
     //@After("@annotation(org.springframework.transaction.annotation.Transactional)")
-    @After("execution(* nr.was.service.*Service.*(..))")
+    @AfterReturning("execution(* nr.was.service.*Service.*(..))")
     public void syncCache( JoinPoint joinPoint){
         log.debug("[CacheSyncAspect]syncCache");
         cacheSyncUtil.syncAll();
+    }
+
+    @AfterThrowing("execution(* nr.was.service.*Service.*(..))")
+    public void rollbackCache( JoinPoint joinPoint){
+        log.debug("[CacheSyncAspect]rollbackCache");
+        cacheSyncUtil.rollbackAll();
     }
 }
