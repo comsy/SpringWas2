@@ -1,20 +1,23 @@
 package nr.was.component.cache;
 
+import nr.was.data.domain.EntityRoot;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class CacheUtil<T> {
+public class CacheUtil<T extends EntityRoot> {
 
     @Cacheable(value = "cache", key = "#key", cacheManager = "redisCacheManager", unless = "#result == null")
-    public T getCache(String key) {
+    public List<T> getCache(String key) {
         return null;
     }
 
     @CachePut(value = "cache", key = "#key", cacheManager = "redisCacheManager", unless = "#result == null")
-    public T putCache(String key, T value) {
+    public List<T> putCache(String key, List<T> value) {
         return value;
     }
 

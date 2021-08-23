@@ -1,6 +1,6 @@
 package nr.was.data.dao;
 
-import nr.was.component.cache.CacheSyncUtil;
+import nr.was.component.cache.CacheManager;
 import nr.was.data.domain.Character;
 import nr.was.data.repository.master.CharacterRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class CharacterDao {
     private CharacterDao self;
 
     private final CharacterRepository repository;
-    private final CacheSyncUtil<Character> cacheSyncUtil;
+    private final CacheManager<Character> cacheManager;
 
     private String redisKey(Long guid){
         String key = "character";
@@ -30,10 +30,10 @@ public class CharacterDao {
 
     //== CQRS : QUERY ==//
     public List<Character> getList(Long guid){
-        List<Character> entityList = cacheSyncUtil.getEntityList(redisKey(guid));
+        List<Character> entityList = cacheManager.getEntityList(redisKey(guid), Character.class);
         if(entityList == null){
             entityList = repository.findByGuid(guid);
-            cacheSyncUtil.addEntityList(redisKey(guid), entityList, true);
+            cacheManager.addEntityList(redisKey(guid), entityList, true);
         }
 
         return entityList;
@@ -52,7 +52,7 @@ public class CharacterDao {
     public Long saveEntity(Character entity){
         repository.save(entity);
 
-        cacheSyncUtil.setEntity(redisKey(entity.getGuid()), entity);
+        cacheManager.setEntity(redisKey(entity.getGuid()), entity, Character.class);
 
         return entity.getId();  // [CQRS위반] 성능을위해 id는 반환
     }
@@ -60,6 +60,6 @@ public class CharacterDao {
     public void deleteEntity(Character entity){
         repository.delete(entity);
 
-        cacheSyncUtil.delEntity(redisKey(entity.getGuid()), entity);
+        cacheManager.delEntity(redisKey(entity.getGuid()), entity);
     }
 }

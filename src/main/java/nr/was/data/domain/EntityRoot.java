@@ -2,7 +2,7 @@ package nr.was.data.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public interface CachedEntityInterface {
+public abstract class EntityRoot {
     @JsonIgnore
-    String getCacheKey();
+    public abstract String getCacheKey();
 }

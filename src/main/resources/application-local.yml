@@ -7,13 +7,6 @@ spring:
       on-profile: "local"
 
   datasource:
-    url: jdbc:mysql://sl-db-011:3306/ZCOMSY?characterEncoding=utf8&serverTimezone=Asia/Seoul
-    username: red_database
-    password: 123qwe
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      max-lifetime: 30000 # 30000ms(30초, hikari min) 동안 사용안한 connection 풀에서 제거 - 컴투스기준 5초(wait_timeout) - 이거 높여야함.
-      leak-detection-threshold: 5000
     game:
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -61,7 +54,9 @@ spring:
 
   cache:
     redis:
-      time-to-live: "10m"
+      cache-null-values: false
+      time-to-live: 1D
+
 
   # redis db 사용 안함 - 클러스터 사용 시 db 사용 못함
   redis:

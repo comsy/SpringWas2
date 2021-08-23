@@ -32,7 +32,7 @@ public class CharacterService {
         Optional<User> user = userDao.getEntity(guid);
 
         List<CharacterDto> characterDtoList = CharacterDto.from(characterList);
-        return new CharacterFindApi.Response(200, "", characterDtoList);
+        return new CharacterFindApi.Response(characterDtoList);
     }
 
     @Transactional  // write 가 있는 경우
@@ -48,6 +48,6 @@ public class CharacterService {
         List<Character> characterList = characterDao.getList(guid);
 
         List<CharacterDto> characterDtoList = CharacterDto.from(characterList);
-        return new CharacterAddExpApi.Response(200, "", characterDtoList, isLevelUp);
+        return new CharacterAddExpApi.Response(characterDtoList, isLevelUp);
     }
 }

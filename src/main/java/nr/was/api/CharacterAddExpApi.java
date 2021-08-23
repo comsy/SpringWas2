@@ -2,6 +2,7 @@ package nr.was.api;
 
 import nr.was.data.dto.CharacterDto;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -29,11 +30,13 @@ public class CharacterAddExpApi {
 
     @Getter
     public static class Response extends GenericApi.Response{
+        @NotNull
         private final List<CharacterDto> characterList;
+        @NotNull
         private final Boolean isLevelUp;
 
-        public Response(@NotNull int status, @NotNull String message, List<CharacterDto> characterList, Boolean isLevelUp) {
-            super(status, message);
+        public Response(List<CharacterDto> characterList, Boolean isLevelUp) {
+            super(HttpStatus.OK.value(), "");
             this.characterList = characterList;
             this.isLevelUp = isLevelUp;
         }

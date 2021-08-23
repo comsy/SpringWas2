@@ -3,7 +3,6 @@ package nr.was.data.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "characters") // character 는 예약어임
@@ -12,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)     // 빌더 패턴으로만 new 하기 위함.
 @Builder
 //@DynamicUpdate // 변경한 필드만 대응
-public class Character implements CachedEntityInterface{
+public class Character extends EntityRoot {
 
     @Id
     @GeneratedValue

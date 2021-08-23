@@ -2,6 +2,7 @@ package nr.was.api;
 
 import nr.was.data.dto.CharacterDto;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -21,10 +22,11 @@ public class CharacterFindApi {
 
     @Getter
     public static class Response extends GenericApi.Response{
+        @NotNull
         private final List<CharacterDto> characterList;
 
-        public Response(@NotNull int status, @NotNull String message, List<CharacterDto> characterList) {
-            super(status, message);
+        public Response(List<CharacterDto> characterList) {
+            super(HttpStatus.OK.value(), "");
             this.characterList = characterList;
         }
     }
