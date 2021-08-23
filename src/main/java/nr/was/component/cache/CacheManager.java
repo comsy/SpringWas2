@@ -21,7 +21,7 @@ import java.util.*;
 public class CacheManager<T extends EntityRoot> {
 
     private final Map<String, CacheSyncData<T>> syncDataMap;
-    private final CacheUtilManager<T> cacheUtilManager;
+    private final CacheUtil<T> cacheUtil;
 
     private String uuid;
 
@@ -59,7 +59,7 @@ public class CacheManager<T extends EntityRoot> {
         CacheSyncData<T> syncData = syncDataMap.getOrDefault(key, null);
         if(syncData == null){
 
-            List<T> cachedEntityList = cacheUtilManager.getCache(key, parsingClassType);
+            List<T> cachedEntityList = cacheUtil.getCache(key, parsingClassType);
             if(cachedEntityList == null){
                 return null;
             }
@@ -76,7 +76,7 @@ public class CacheManager<T extends EntityRoot> {
     public void setEntity(String key, T entity, Class<T> parsingClassType){
         CacheSyncData<T> syncData = syncDataMap.getOrDefault(key, null);
         if(syncData == null){
-            List<T> cachedEntityList = cacheUtilManager.getCache(key, parsingClassType);
+            List<T> cachedEntityList = cacheUtil.getCache(key, parsingClassType);
             // 캐시에 없을 때는 빈채로 CacheSyncData 생성
             if(cachedEntityList == null){
                 cachedEntityList = new ArrayList<>();
@@ -104,14 +104,14 @@ public class CacheManager<T extends EntityRoot> {
         syncDataMap.values().forEach(syncData->{
             if(syncData.getSyncState() == CacheSyncState.DIRTY){
                 log.debug("[CacheSyncUtil]syncAll : " + syncData.getKey());
-                cacheUtilManager.putCache(syncData.getKey(), syncData.getDataList());
+                cacheUtil.putCache(syncData.getKey(), syncData.getDataList());
             }
         });
         syncDataMap.clear();
     }
 
     public void rollbackAll(){
-        syncDataMap.values().forEach(syncData-> cacheUtilManager.delCache(syncData.getKey()));
+        syncDataMap.values().forEach(syncData-> cacheUtil.delCache(syncData.getKey()));
         syncDataMap.clear();
     }
 }
