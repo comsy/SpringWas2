@@ -2,7 +2,7 @@ package nr.was.data.dao;
 
 import nr.was.component.cache.CacheManager;
 import nr.was.data.domain.Character;
-import nr.was.data.repository.master.CharacterRepository;
+import nr.was.repository.master.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

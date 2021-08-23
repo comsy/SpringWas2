@@ -1,4 +1,4 @@
-package nr.was.data.repository.redis;
+package nr.was.repository.redis;
 
 import nr.was.data.domain.redis.CharacterInfo;
 import org.springframework.data.repository.CrudRepository;

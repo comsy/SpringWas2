@@ -1,4 +1,4 @@
-package nr.was.data.repository.master;
+package nr.was.repository.master;
 
 import nr.was.data.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

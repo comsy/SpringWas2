@@ -1,4 +1,4 @@
-package nr.was.data.repository.log;
+package nr.was.repository.log;
 
 import nr.was.data.domain.log.CharacterLog;
 import org.springframework.data.jpa.repository.JpaRepository;

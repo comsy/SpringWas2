@@ -20,7 +20,7 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "nr.was.data.repository.slave",
+        basePackages = "nr.was.repository.slave",
         entityManagerFactoryRef = "gameSlaveEntityManagerFactory",
         transactionManagerRef = "gameSlaveTransactionManager"
 )

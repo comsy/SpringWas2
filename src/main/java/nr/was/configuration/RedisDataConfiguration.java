@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @EnableRedisRepositories(
-        basePackages = "nr.was.data.repository.redis",
+        basePackages = "nr.was.repository.redis",
         redisTemplateRef = "redisDataTemplate"
 )
 @RequiredArgsConstructor

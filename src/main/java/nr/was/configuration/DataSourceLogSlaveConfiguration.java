@@ -20,7 +20,7 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "nr.was.data.repository.logSlave",
+        basePackages = "nr.was.repository.logSlave",
         entityManagerFactoryRef = "logSlaveEntityManagerFactory",
         transactionManagerRef = "logSlaveTransactionManager"
 )

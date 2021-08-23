@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.component.cache.CacheManager;
 import nr.was.data.domain.User;
-import nr.was.data.repository.master.UserRepository;
+import nr.was.repository.master.UserRepository;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
