@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +23,13 @@ public class CacheUtil<T extends EntityMaster> {
 
     private final ObjectMapper objectMapper;
 
+    // self-autowired - 클래스 내부에서 AOP 관련 method 호출시 self-invocation 문제생김. https://gmoon92.github.io/spring/aop/2019/04/01/spring-aop-mechanism-with-self-invocation.html
+    @Resource
+    private CacheUtil<T> self;
+
     public List<T> getCache(String key, Class<T> parsingClassType) {
         try {
-            List<T> cache = this.get(key);
-
-            if(cache == null)
-                log.debug("[CacheUtil] cache is null : " + key);
-            else
-                log.debug("[CacheUtil] cache is not null : " + key);
+            List<T> cache = self.get(key);
 
             // LinkedHashMap to Entity
             CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, parsingClassType);
@@ -45,9 +45,7 @@ public class CacheUtil<T extends EntityMaster> {
 
     public void putCache(String key, List<T> value) {
         try{
-
-            List<T> put = this.put(key, value);
-            put.forEach(data->log.debug("[putCache]" + data.toString()));
+            self.put(key, value);
         }
         catch (RedisException  | RedisConnectionFailureException e){
             log.error("[CacheManager]putCache error : " + e.getMessage());
@@ -56,7 +54,7 @@ public class CacheUtil<T extends EntityMaster> {
 
     public void delCache(String key) {
         try {
-            this.del(key);
+            self.del(key);
         }
         catch (RedisException | RedisConnectionFailureException e){
             log.error("[CacheManager]delCache error : " + e.getMessage());

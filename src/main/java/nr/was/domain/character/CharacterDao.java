@@ -15,7 +15,7 @@ import java.util.Optional;
 @Slf4j
 public class CharacterDao {
 
-    // self-autowired
+    // self-autowired - 클래스 내부에서 AOP 관련 method 호출시 self-invocation 문제생김. https://gmoon92.github.io/spring/aop/2019/04/01/spring-aop-mechanism-with-self-invocation.html
     @Resource
     private CharacterDao self;
 
