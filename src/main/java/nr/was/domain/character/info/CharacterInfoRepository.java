@@ -1,6 +1,5 @@
-package nr.was.domain.character.repository;
+package nr.was.domain.character.info;
 
-import nr.was.domain.character.CharacterInfo;
 import nr.was.global.annotation.RepositoryRedis;
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,8 +1,8 @@
-package nr.was.domain.character;
+package nr.was.domain.user;
 
-import nr.was.global.util.cache.CacheManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nr.was.global.util.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -12,23 +12,23 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class CharacterDao {
+public class UserDao {
 
     // self-autowired - 클래스 내부에서 AOP 관련 method 호출시 self-invocation 문제생김. https://gmoon92.github.io/spring/aop/2019/04/01/spring-aop-mechanism-with-self-invocation.html
     @Resource
-    private CharacterDao self;
+    private UserDao self;
 
-    private final CharacterRepository repository;
-    private final CacheManager<Character> cacheManager;
+    private final UserRepository repository;
+    private final CacheManager<User> cacheManager;
 
     private String redisKey(Long guid){
-        String key = "character";
+        String key = "user";
         return key +"::"+guid;
     }
 
     //== CQRS : QUERY ==//
-    public List<Character> getList(Long guid){
-        List<Character> entityList = cacheManager.getEntityList(redisKey(guid), Character.class);
+    public List<User> getList(Long guid){
+        List<User> entityList = cacheManager.getEntityList(redisKey(guid), User.class);
         if(entityList == null){
             entityList = repository.findByGuid(guid);
             cacheManager.addEntityList(redisKey(guid), entityList, true);
@@ -37,25 +37,25 @@ public class CharacterDao {
         return entityList;
     }
 
-    public Optional<Character> getEntity(Long guid, Long id){
-        List<Character> entityList = self.getList(guid);
+    public Optional<User> getEntity(Long guid){
+        List<User> entityList = self.getList(guid);
 
         // 실수 방지를 위해 Optional로  return
         return entityList.stream()
-                .filter(dto -> dto.getId().equals(id))
+                .filter(dto -> dto.getGuid().equals(guid))
                 .findFirst();
     }
 
     //== CQRS : COMMAND ==//
-    public Long saveEntity(Character entity){
+    public Long saveEntity(User entity){
         repository.save(entity);
 
-        cacheManager.setEntity(redisKey(entity.getGuid()), entity, Character.class);
+        cacheManager.setEntity(redisKey(entity.getGuid()), entity, User.class);
 
-        return entity.getId();  // [CQRS위반] 성능을위해 id는 반환
+        return entity.getGuid();  // [CQRS위반] 성능을위해 id는 반환
     }
 
-    public void deleteEntity(Character entity){
+    public void deleteEntity(User entity){
         repository.delete(entity);
 
         cacheManager.delEntity(redisKey(entity.getGuid()), entity);

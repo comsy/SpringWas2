@@ -1,4 +1,4 @@
-package nr.was.domain.character;
+package nr.was.domain.character.info;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

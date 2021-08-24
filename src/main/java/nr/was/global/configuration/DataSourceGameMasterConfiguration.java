@@ -2,7 +2,10 @@ package nr.was.global.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
-import nr.was.global.annotation.RepositoryMaster;
+import nr.was.global.annotation.RepositoryLogMaster;
+import nr.was.global.annotation.RepositoryLogSlave;
+import nr.was.global.annotation.RepositoryRedis;
+import nr.was.global.annotation.RepositorySlave;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -21,9 +24,9 @@ import java.util.Objects;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "nr.was.domain",
-        includeFilters = @ComponentScan.Filter(
+        excludeFilters = @ComponentScan.Filter(
                 type = FilterType.ANNOTATION,
-                classes = {RepositoryMaster.class}
+                classes = {RepositorySlave.class, RepositoryLogMaster.class, RepositoryLogSlave.class, RepositoryRedis.class}
         ),
         entityManagerFactoryRef = "gameMasterEntityManagerFactory",
         transactionManagerRef = "gameMasterTransactionManager"

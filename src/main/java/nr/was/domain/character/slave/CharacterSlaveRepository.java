@@ -1,4 +1,4 @@
-package nr.was.domain.character.repository;
+package nr.was.domain.character.slave;
 
 import nr.was.domain.character.Character;
 import nr.was.global.annotation.RepositorySlave;
