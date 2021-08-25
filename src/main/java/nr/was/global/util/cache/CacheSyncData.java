@@ -2,7 +2,7 @@ package nr.was.global.util.cache;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import nr.was.global.entity.EntityMaster;
+import nr.was.domain.EntityMaster;
 
 import java.util.ArrayList;
 import java.util.List;

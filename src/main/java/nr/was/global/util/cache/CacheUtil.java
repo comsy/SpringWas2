@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import io.lettuce.core.RedisException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.global.entity.EntityMaster;
+import nr.was.domain.EntityMaster;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

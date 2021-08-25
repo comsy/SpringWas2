@@ -1,7 +1,7 @@
 package nr.was.domain.character.character;
 
 import lombok.*;
-import nr.was.global.entity.EntityMaster;
+import nr.was.domain.EntityMaster;
 
 import javax.persistence.*;
 

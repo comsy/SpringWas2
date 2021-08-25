@@ -2,7 +2,7 @@ package nr.was.global.util.cache;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.global.entity.EntityMaster;
+import nr.was.domain.EntityMaster;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 

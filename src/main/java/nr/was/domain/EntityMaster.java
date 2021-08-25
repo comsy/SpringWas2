@@ -1,4 +1,4 @@
-package nr.was.global.entity;
+package nr.was.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

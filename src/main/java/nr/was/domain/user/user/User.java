@@ -1,7 +1,7 @@
 package nr.was.domain.user.user;
 
 import lombok.*;
-import nr.was.global.entity.EntityMaster;
+import nr.was.domain.EntityMaster;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

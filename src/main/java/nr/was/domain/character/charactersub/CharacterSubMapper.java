@@ -1,6 +1,6 @@
 package nr.was.domain.character.charactersub;
 
-import nr.was.global.dtomapper.GenericMapper;
+import nr.was.domain.GenericMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

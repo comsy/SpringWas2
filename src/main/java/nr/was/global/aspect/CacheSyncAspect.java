@@ -2,7 +2,7 @@ package nr.was.global.aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.global.entity.EntityMaster;
+import nr.was.domain.EntityMaster;
 import nr.was.global.util.cache.CacheManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;

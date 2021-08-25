@@ -1,4 +1,4 @@
-package nr.was.global.dtomapper;
+package nr.was.domain;
 
 import org.mapstruct.*;
 
