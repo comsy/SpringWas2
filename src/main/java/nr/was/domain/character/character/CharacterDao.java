@@ -1,8 +1,8 @@
-package nr.was.domain.character;
+package nr.was.domain.character.character;
 
-import nr.was.global.util.cache.CacheManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nr.was.global.util.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -21,17 +21,18 @@ public class CharacterDao {
     private final CharacterRepository repository;
     private final CacheManager<Character> cacheManager;
 
-    private String redisKey(Long guid){
-        String key = "character";
+    private String cacheKey(Long guid){
+        String classKey = getClass().getSimpleName();
+        String key = classKey.substring(0, classKey.indexOf("Dao")).toLowerCase();
         return key +"::"+guid;
     }
 
     //== CQRS : QUERY ==//
     public List<Character> getList(Long guid){
-        List<Character> entityList = cacheManager.getEntityList(redisKey(guid), Character.class);
+        List<Character> entityList = cacheManager.getEntityList(cacheKey(guid), Character.class);
         if(entityList == null){
             entityList = repository.findByGuid(guid);
-            cacheManager.addEntityList(redisKey(guid), entityList, true);
+            cacheManager.addEntityList(cacheKey(guid), entityList, true);
         }
 
         return entityList;
@@ -50,7 +51,7 @@ public class CharacterDao {
     public Long saveEntity(Character entity){
         repository.save(entity);
 
-        cacheManager.setEntity(redisKey(entity.getGuid()), entity, Character.class);
+        cacheManager.setEntity(cacheKey(entity.getGuid()), entity, Character.class);
 
         return entity.getId();  // [CQRS위반] 성능을위해 id는 반환
     }
@@ -58,6 +59,6 @@ public class CharacterDao {
     public void deleteEntity(Character entity){
         repository.delete(entity);
 
-        cacheManager.delEntity(redisKey(entity.getGuid()), entity);
+        cacheManager.delEntity(cacheKey(entity.getGuid()), entity);
     }
 }

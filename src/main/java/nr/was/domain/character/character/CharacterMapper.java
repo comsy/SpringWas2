@@ -1,4 +1,4 @@
-package nr.was.domain.character;
+package nr.was.domain.character.character;
 
 import nr.was.global.dtomapper.GenericMapper;
 import org.mapstruct.Mapper;

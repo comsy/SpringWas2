@@ -1,4 +1,4 @@
-package nr.was.domain.user;
+package nr.was.domain.user.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,17 +21,18 @@ public class UserDao {
     private final UserRepository repository;
     private final CacheManager<User> cacheManager;
 
-    private String redisKey(Long guid){
-        String key = "user";
+    private String cacheKey(Long guid){
+        String classKey = getClass().getSimpleName();
+        String key = classKey.substring(0, classKey.indexOf("Dao")).toLowerCase();
         return key +"::"+guid;
     }
 
     //== CQRS : QUERY ==//
     public List<User> getList(Long guid){
-        List<User> entityList = cacheManager.getEntityList(redisKey(guid), User.class);
+        List<User> entityList = cacheManager.getEntityList(cacheKey(guid), User.class);
         if(entityList == null){
             entityList = repository.findByGuid(guid);
-            cacheManager.addEntityList(redisKey(guid), entityList, true);
+            cacheManager.addEntityList(cacheKey(guid), entityList, true);
         }
 
         return entityList;
@@ -50,7 +51,7 @@ public class UserDao {
     public Long saveEntity(User entity){
         repository.save(entity);
 
-        cacheManager.setEntity(redisKey(entity.getGuid()), entity, User.class);
+        cacheManager.setEntity(cacheKey(entity.getGuid()), entity, User.class);
 
         return entity.getGuid();  // [CQRS위반] 성능을위해 id는 반환
     }
@@ -58,6 +59,6 @@ public class UserDao {
     public void deleteEntity(User entity){
         repository.delete(entity);
 
-        cacheManager.delEntity(redisKey(entity.getGuid()), entity);
+        cacheManager.delEntity(cacheKey(entity.getGuid()), entity);
     }
 }

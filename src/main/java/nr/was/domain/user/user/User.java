@@ -1,4 +1,4 @@
-package nr.was.domain.user;
+package nr.was.domain.user.user;
 
 import lombok.*;
 import nr.was.global.entity.EntityMaster;

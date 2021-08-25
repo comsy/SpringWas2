@@ -1,4 +1,4 @@
-package nr.was.domain.user;
+package nr.was.domain.user.user;
 
 import nr.was.global.dtomapper.GenericMapper;
 import org.mapstruct.Mapper;

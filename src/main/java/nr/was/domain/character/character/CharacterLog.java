@@ -1,4 +1,4 @@
-package nr.was.domain.character.log;
+package nr.was.domain.character.character;
 
 import lombok.*;
 

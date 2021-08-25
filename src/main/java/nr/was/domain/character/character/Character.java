@@ -1,4 +1,4 @@
-package nr.was.domain.character;
+package nr.was.domain.character.character;
 
 import lombok.*;
 import nr.was.global.entity.EntityMaster;

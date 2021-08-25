@@ -1,7 +1,7 @@
 package nr.was.domain.character.api;
 
 import lombok.Getter;
-import nr.was.domain.character.CharacterDto;
+import nr.was.domain.character.character.CharacterDto;
 import nr.was.global.api.GenericApi;
 import org.springframework.http.HttpStatus;
 

@@ -1,4 +1,4 @@
-package nr.was.domain.user;
+package nr.was.domain.user.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

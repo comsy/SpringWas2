@@ -1,4 +1,4 @@
-package nr.was.domain.character.info;
+package nr.was.domain.character.charactersub;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)      // 빌더 패턴으로만 new 하기 위함.
 @AllArgsConstructor(access = AccessLevel.PROTECTED)     // 빌더 패턴으로만 new 하기 위함.
 @Builder
-public class CharacterInfo {
+public class CharacterSub {
 
     @Id
     @NotNull
