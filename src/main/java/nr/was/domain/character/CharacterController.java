@@ -1,10 +1,13 @@
 package nr.was.domain.character;
 
-import nr.was.domain.character.api.CharacterAddExpApi;
-import nr.was.domain.character.api.CharacterFindApi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import nr.was.domain.character.api.CharacterAddApi;
+import nr.was.domain.character.api.CharacterAddExpApi;
+import nr.was.domain.character.api.CharacterFindApi;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -15,13 +18,16 @@ public class CharacterController {
 
     private final CharacterService characterService;
 
+    @PostMapping("/character/add")
+    public CharacterAddApi.Response addCharacter(@RequestBody @Valid CharacterAddApi.Request request){
+
+        return characterService.add(request);
+    }
+
     @PostMapping("/character/findList")
     public CharacterFindApi.Response findCharacterList(@RequestBody @Valid CharacterFindApi.Request request){
 
-        Long guid = request.getGuid();
-        log.debug("guid : " + guid);
-
-        return characterService.findAll(guid);
+        return characterService.findAll(request);
     }
 
     @PostMapping("/character/addExp")

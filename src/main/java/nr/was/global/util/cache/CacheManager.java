@@ -80,8 +80,8 @@ public class CacheManager<T extends EntityMaster> {
             // 캐시에 없을 때는 빈채로 CacheSyncData 생성
             if(cachedEntityList == null){
                 cachedEntityList = new ArrayList<>();
-                addEntityList(key, cachedEntityList, false);
             }
+            addEntityList(key, cachedEntityList, false);
 
             syncData = syncDataMap.getOrDefault(key, null);
         }
@@ -103,7 +103,7 @@ public class CacheManager<T extends EntityMaster> {
     public void syncAll(){
         syncDataMap.values().forEach(syncData->{
             if(syncData.getSyncState() == CacheSyncState.DIRTY){
-                log.debug("[CacheSyncUtil]syncAll : " + syncData.getKey());
+                log.debug("[CacheSyncUtil]syncAll 캐시 저장소에 저장함 : " + syncData.getKey());
                 cacheUtil.putCache(syncData.getKey(), syncData.getDataList());
             }
         });

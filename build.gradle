@@ -44,7 +44,7 @@ dependencies {
 
     // lombok, mapstruct - https://github.com/mapstruct/mapstruct
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.projectlombok:lombok'
 
     // lombok 과 mapstruct 순서 중요함(builder 패턴 사용 위해)
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
@@ -56,6 +56,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 test {

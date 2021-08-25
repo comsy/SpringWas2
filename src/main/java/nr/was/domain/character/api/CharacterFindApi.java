@@ -13,7 +13,7 @@ public class CharacterFindApi {
     @Getter
     public static class Request extends GenericApi.Request {
         @NotNull
-        private Long guid;
+        private final Long guid;
 
         public Request(String version, String token, Long guid) {
             super(version, token);

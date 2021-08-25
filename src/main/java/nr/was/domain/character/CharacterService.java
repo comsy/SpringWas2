@@ -1,5 +1,6 @@
 package nr.was.domain.character;
 
+import nr.was.domain.character.api.CharacterAddApi;
 import nr.was.domain.character.api.CharacterAddExpApi;
 import nr.was.domain.character.api.CharacterFindApi;
 import nr.was.global.exception.BusinessException;
@@ -21,7 +22,8 @@ public class CharacterService {
     private final CharacterDao characterDao;
 
 
-    public CharacterFindApi.Response findAll(Long guid){
+    public CharacterFindApi.Response findAll(CharacterFindApi.Request request){
+        Long guid = request.getGuid();
         List<Character> characterList = characterDao.getList(guid);
 
         List<CharacterDto> characterDtoList = CharacterDto.from(characterList);
@@ -42,5 +44,25 @@ public class CharacterService {
 
         List<CharacterDto> characterDtoList = CharacterDto.from(characterList);
         return new CharacterAddExpApi.Response(characterDtoList, isLevelUp);
+    }
+
+    @Transactional
+    public CharacterAddApi.Response add(CharacterAddApi.Request request) {
+        Long guid = request.getGuid();
+        Character character = Character.builder()
+                .guid(guid)
+                .characterId(0L)
+                .category(0)
+                .level(1)
+                .exp(0)
+                .build();
+
+        characterDao.saveEntity(character);
+
+        List<Character> characterList = characterDao.getList(guid);
+
+        List<CharacterDto> characterDtoList = CharacterDto.from(characterList);
+
+        return new CharacterAddApi.Response(characterDtoList);
     }
 }
