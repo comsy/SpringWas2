@@ -4,36 +4,41 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.domain.character.api.CharacterAddApi;
 import nr.was.domain.character.api.CharacterFindApi;
+import nr.was.domain.character.character.Character;
+import nr.was.domain.character.character.CharacterDto;
+import nr.was.global.util.RequestInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * 통합 테스트
- * WebEnvironment.MOCK - 가짜 톰캣으로 테스트
- * WebEnvironment.RANDOM_PORT - 실제 톰캣으로 테스트
- * AutoConfigureMockMvc - MockMvc 를 IOC 에 등록
- *
- */
+
 @Slf4j
-@Transactional
-@AutoConfigureMockMvc
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class CharacterControllerIntegrationTest {
+@WebMvcTest
+class CharacterControllerUnitTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private CharacterService characterService;
+
+    @MockBean
+    private RequestInfo requestInfo;
 
     @Value("${test.api.version}")
     private String version;
@@ -50,6 +55,23 @@ class CharacterControllerIntegrationTest {
         CharacterFindApi.Request request = new CharacterFindApi.Request(version, token, guid);
         String content = new ObjectMapper().writeValueAsString(request);
         log.info("request : " + content);
+
+        Character character = Character.builder()
+                .id(1L)
+                .guid(request.getGuid())
+                .characterId(1L)
+                .level(1)
+                .exp(0)
+                .category(0)
+                .build();
+        CharacterDto characterDto = CharacterDto.from(character);
+        List<CharacterDto> characterList = new ArrayList<>();
+        characterList.add(characterDto);
+        CharacterFindApi.Response response = new CharacterFindApi.Response(characterList);
+        String responseJson = new ObjectMapper().writeValueAsString(response);
+        log.info("responseJson : " + responseJson);
+
+        when(characterService.findAll(any(CharacterFindApi.Request.class))).thenReturn(response);
 
         //when
         ResultActions resultActions = mockMvc.perform(post("/character/findList")
@@ -74,6 +96,23 @@ class CharacterControllerIntegrationTest {
         CharacterAddApi.Request request = new CharacterAddApi.Request(version, token, guid);
         String content = new ObjectMapper().writeValueAsString(request);
         log.info("request : " + content);
+
+        Character character = Character.builder()
+                .id(1L)
+                .guid(request.getGuid())
+                .characterId(1L)
+                .level(1)
+                .exp(0)
+                .category(0)
+                .build();
+        CharacterDto characterDto = CharacterDto.from(character);
+        List<CharacterDto> characterList = new ArrayList<>();
+        characterList.add(characterDto);
+        CharacterAddApi.Response response = new CharacterAddApi.Response(characterList);
+        String responseJson = new ObjectMapper().writeValueAsString(response);
+        log.info("responseJson : " + responseJson);
+
+        when(characterService.add(any(CharacterAddApi.Request.class))).thenReturn(response);
 
         //when
         ResultActions resultActions = mockMvc.perform(post("/character/add")
