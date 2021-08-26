@@ -1,16 +1,17 @@
-package nr.was.domain.character;
+package nr.was.domain.character.character;
 
-import nr.was.domain.character.character.Character;
-import nr.was.domain.character.character.CharacterRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheType;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+import static org.assertj.core.api.Assertions.assertThat;
+
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@AutoConfigureCache(cacheProvider = CacheType.SIMPLE)
 @DataJpaTest // Repository 를 IOC 에 등록해줌.
 class CharacterRepositoryUnitTest {
 
@@ -34,9 +35,9 @@ class CharacterRepositoryUnitTest {
         Character save = characterRepository.save(character);
 
         //then
-        Assertions.assertThat(save.getGuid()).isEqualTo(guid);
-        Assertions.assertThat(save.getCharacterId()).isEqualTo(1L);
-        Assertions.assertThat(save.getLevel()).isEqualTo(1);
+        assertThat(save.getGuid()).as("guid 테스트").isEqualTo(guid);
+        assertThat(save.getCharacterId()).as("characterId 테스트").isEqualTo(1L);
+        assertThat(save.getLevel()).as("level 테스트").isEqualTo(1);
 
     }
 }

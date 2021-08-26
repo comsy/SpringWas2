@@ -7,6 +7,8 @@ import nr.was.domain.character.api.CharacterFindApi;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.cache.CacheType;
+import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @Transactional
 @AutoConfigureMockMvc
+@AutoConfigureCache(cacheProvider = CacheType.SIMPLE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 class CharacterControllerIntegrationTest {
 
