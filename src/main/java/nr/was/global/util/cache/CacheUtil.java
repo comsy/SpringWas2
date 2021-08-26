@@ -29,13 +29,12 @@ public class CacheUtil<T extends EntityMaster> {
 
     public List<T> getCache(String key, Class<T> parsingClassType) {
         try {
-            List<T> cache = self.get(key);
+            List<T> cacheHashMap = self.get(key);
 
             // LinkedHashMap to Entity
             CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, parsingClassType);
-            cache = objectMapper.convertValue(cache, collectionType);
 
-            return cache;
+            return objectMapper.convertValue(cacheHashMap, collectionType);
         }
         catch (RedisException | RedisConnectionFailureException e){
             log.error("[CacheManager]getCache error : " + e.getMessage());
