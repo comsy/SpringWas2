@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @Slf4j
-@WebMvcTest
+@WebMvcTest(controllers = CharacterController.class)
 class CharacterControllerUnitTest {
 
     @Autowired
