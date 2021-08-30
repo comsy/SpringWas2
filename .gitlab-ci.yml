@@ -23,9 +23,15 @@ build_dev:
     - ./gradlew clean
     - ./gradlew build
     - echo "빌드 완료"
+  tags:
+    - was
+    - local
 
 test_dev:
   stage: test
   script:
     - echo "이 Job은 무언가를 테스트합니다."
     - ./gradlew test
+  tags:
+    - was
+    - local
