@@ -10,23 +10,11 @@ import java.util.List;
 @Getter
 @Builder
 public class CharacterSubDto implements Serializable {
-    @JsonProperty("dbKey")
+    @JsonProperty("id")
     private Long id;
 
-    @JsonProperty("guid")
-    private Long guid;
-
-    @JsonProperty("category")
-    private int category;
-
-    @JsonProperty("id")
-    private Long characterId;
-
-    @JsonProperty("level")
-    private int level;
-
-    @JsonProperty("exp")
-    private int exp;
+    @JsonProperty("name")
+    private String name;
 
     public static CharacterSubDto from(CharacterSub entity){
         return CharacterSubMapper.INSTANCE.toDto(entity);
