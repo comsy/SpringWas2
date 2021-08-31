@@ -100,6 +100,15 @@ public class CacheManager<T extends EntityMaster> {
         syncData.setDirty();
     }
 
+    public void delCache(String key){
+        CacheSyncData<T> syncData = syncDataMap.getOrDefault(key, null);
+        if(syncData != null){
+            syncDataMap.remove(key, syncData);
+        }
+
+        cacheUtil.delCache(key);
+    }
+
     public void syncAll(){
         syncDataMap.values().forEach(syncData->{
             if(syncData.getSyncState() == CacheSyncState.DIRTY){
