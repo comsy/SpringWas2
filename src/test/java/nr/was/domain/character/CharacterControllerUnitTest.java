@@ -4,14 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.domain.character.api.CharacterAddApi;
 import nr.was.domain.character.api.CharacterFindApi;
-import nr.was.domain.character.character.Character;
 import nr.was.domain.character.character.CharacterDto;
+import nr.was.domain.character.character.entity.Character;
 import nr.was.global.util.RequestInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -28,7 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @Slf4j
-@WebMvcTest(controllers = CharacterController.class)
+@WebMvcTest(
+        controllers = CharacterController.class,
+        includeFilters = @ComponentScan.Filter(classes = {})
+)
 class CharacterControllerUnitTest {
 
     @Autowired

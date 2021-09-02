@@ -14,9 +14,13 @@ spring:
   jpa:
     open-in-view: false
 
-# 나중에  common 으로 이동 해야됨.
+
 decorator.datasource.p6spy:
   enable-logging: true
   multiline: true
   logging: slf4j
   tracing.include-parameter-values: true
+
+design:
+  path: /game/nr/table/
+  prefix: "SL_Table_"

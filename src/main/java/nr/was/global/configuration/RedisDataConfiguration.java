@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import nr.was.global.annotation.RepositoryRedis;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +50,7 @@ public class RedisDataConfiguration {
         redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer);
         // HASH
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
-        redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer);
+        redisTemplate.setHashValueSerializer(stringRedisSerializer);
         redisTemplate.setConnectionFactory(redisDataConnectionFactory);
         // TRANSACTION
         redisTemplate.setEnableTransactionSupport(true);

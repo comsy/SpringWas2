@@ -2,7 +2,7 @@ package nr.was.global.util.cache;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.domain.EntityMaster;
+import nr.was.domain.ICachedEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -18,7 +18,7 @@ import java.util.*;
 @Component
 @RequestScope
 @RequiredArgsConstructor
-public class CacheManager<T extends EntityMaster> {
+public class CacheManager<T extends ICachedEntity> {
 
     private final Map<String, CacheSyncData<T>> syncDataMap;
     private final CacheUtil<T> cacheUtil;
@@ -41,7 +41,7 @@ public class CacheManager<T extends EntityMaster> {
 
 
     public void addEntityList(String key, List<T> entityList, Boolean dirty){
-        Map<String, T> dataMap = new HashMap<>();
+        Map<String, T> dataMap = new LinkedHashMap<>();
         CacheSyncData<T> syncData = new CacheSyncData<>(key, dataMap);
 
         entityList.forEach(syncData::setData);

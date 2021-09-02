@@ -2,7 +2,9 @@ package nr.was.global.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
+import nr.was.domain.BaseGameTimeCachedEntity;
 import nr.was.global.annotation.RepositorySlave;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -50,7 +52,7 @@ public class DataSourceGameSlaveConfiguration {
                 jpaProperties.getProperties(), new HibernateSettings());
         return builder.dataSource(gameSlaveDataSource())
                 .properties(properties)
-                .packages("nr.was.domain")
+                .packages("nr.was.**.entity")
                 .persistenceUnit("gameSlaveEntityManager")
                 .build();
     }

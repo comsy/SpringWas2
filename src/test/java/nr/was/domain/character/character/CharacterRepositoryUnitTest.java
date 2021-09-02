@@ -1,5 +1,6 @@
 package nr.was.domain.character.character;
 
+import nr.was.domain.character.character.entity.Character;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheType;

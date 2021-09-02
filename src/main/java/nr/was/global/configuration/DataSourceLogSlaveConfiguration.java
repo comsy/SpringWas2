@@ -50,7 +50,7 @@ public class DataSourceLogSlaveConfiguration {
                 jpaProperties.getProperties(), new HibernateSettings());
         return builder.dataSource(logSlaveDataSource())
                 .properties(properties)
-                .packages("nr.was.domain")
+                .packages("nr.was.**.entityLog")
                 .persistenceUnit("logSlaveEntityManager")
                 .build();
     }

@@ -1,16 +1,18 @@
 package nr.was.domain.character.character;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+import nr.was.domain.BaseTimeDto;
+import nr.was.domain.character.character.entity.Character;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Getter
-@Builder
-public class CharacterDto implements Serializable {
-    @JsonProperty("dbKey")
+@SuperBuilder
+public class CharacterDto extends BaseTimeDto implements Serializable {
+    @JsonProperty("id")
     private Long id;
 
     @JsonProperty("guid")
@@ -19,7 +21,7 @@ public class CharacterDto implements Serializable {
     @JsonProperty("category")
     private int category;
 
-    @JsonProperty("id")
+    @JsonProperty("character_id")
     private Long characterId;
 
     @JsonProperty("level")

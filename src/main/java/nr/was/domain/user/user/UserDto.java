@@ -1,15 +1,17 @@
 package nr.was.domain.user.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+import nr.was.domain.BaseTimeDto;
+import nr.was.domain.user.user.entity.User;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Getter
-@Builder
-public class UserDto implements Serializable {
+@SuperBuilder
+public class UserDto extends BaseTimeDto implements Serializable {
 
     @JsonProperty("guid")
     private Long guid;

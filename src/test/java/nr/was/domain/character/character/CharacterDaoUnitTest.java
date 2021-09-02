@@ -1,5 +1,6 @@
 package nr.was.domain.character.character;
 
+import nr.was.domain.character.character.entity.Character;
 import nr.was.global.util.cache.CacheManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,7 +89,14 @@ class CharacterDaoUnitTest {
                 .containsExactly(character1, character2);
     }
 
+    @Test
+    public void dd() throws Exception {
+        //given
 
+        //when
+
+        //then
+    }
 
 
 

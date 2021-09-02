@@ -1,8 +1,11 @@
 package nr.was.global.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -12,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class RedisUtil<T> {
     private final RedisTemplate<String, T> redisDataTemplate;
+    private final ObjectMapper objectMapper;
 
     //region String
     public void putValue(String key, T value) {
@@ -68,8 +72,18 @@ public class RedisUtil<T> {
         redisDataTemplate.opsForHash().put(key, id, value);
     }
 
-    public T findInHash(String key, int id) {
-        return (T) redisDataTemplate.opsForHash().get(key, id);
+    public T findInHash(String key, int id, Class<T> classType) {
+        String jsonResult = (String) redisDataTemplate.opsForHash().get(key, id);
+        if(StringUtils.hasLength(jsonResult)){
+            return null;
+        }
+
+        try {
+            return objectMapper.readValue(jsonResult, classType);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void deleteHash(String key, int id) {

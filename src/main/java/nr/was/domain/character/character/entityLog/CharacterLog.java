@@ -1,4 +1,4 @@
-package nr.was.domain.character.character;
+package nr.was.domain.character.character.entityLog;
 
 import lombok.*;
 

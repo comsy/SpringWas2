@@ -2,7 +2,7 @@ package nr.was.global.aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.domain.EntityMaster;
+import nr.was.domain.ICachedEntity;
 import nr.was.global.util.cache.CacheManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -19,7 +19,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @RequiredArgsConstructor
 public class CacheSyncAspect {
 
-    private final CacheManager<? extends EntityMaster> cacheManager;
+    private final CacheManager<? extends ICachedEntity> cacheManager;
 
     private final ApplicationEventPublisher applicationEventPublisher;
 

@@ -1,7 +1,11 @@
-package nr.was.domain.character.character;
+package nr.was.domain.character.character.entity;
 
-import lombok.*;
-import nr.was.domain.EntityMaster;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import nr.was.domain.BaseGameTimeCachedEntity;
 
 import javax.persistence.*;
 
@@ -10,14 +14,16 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)      // 빌더 패턴으로만 new 하기 위함.
 @AllArgsConstructor(access = AccessLevel.PROTECTED)     // 빌더 패턴으로만 new 하기 위함.
-@Builder
+@SuperBuilder
 //@DynamicUpdate // 변경한 필드만 대응
-public class Character extends EntityMaster {
+public class Character extends BaseGameTimeCachedEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
     private Long id;
 
+    @Column(updatable = false, nullable = false)
     private Long guid;
 
     private int category;

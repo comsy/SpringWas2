@@ -1,5 +1,6 @@
 package nr.was.domain.character.character;
 
+import nr.was.domain.character.character.entity.Character;
 import nr.was.global.annotation.RepositoryMaster;
 import org.springframework.data.jpa.repository.JpaRepository;
 

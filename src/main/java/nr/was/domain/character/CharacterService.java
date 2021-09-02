@@ -3,7 +3,7 @@ package nr.was.domain.character;
 import nr.was.domain.character.api.CharacterAddApi;
 import nr.was.domain.character.api.CharacterAddExpApi;
 import nr.was.domain.character.api.CharacterFindApi;
-import nr.was.domain.character.character.Character;
+import nr.was.domain.character.character.entity.Character;
 import nr.was.domain.character.character.CharacterDao;
 import nr.was.domain.character.character.CharacterDto;
 import nr.was.global.exception.BusinessException;

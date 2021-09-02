@@ -2,6 +2,7 @@ package nr.was.domain.character.character;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nr.was.domain.character.character.entity.Character;
 import nr.was.global.util.cache.CacheManager;
 import org.springframework.stereotype.Component;
 

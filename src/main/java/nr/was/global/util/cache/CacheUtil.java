@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import io.lettuce.core.RedisException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.domain.EntityMaster;
+import nr.was.domain.ICachedEntity;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CacheUtil<T extends EntityMaster> {
+public class CacheUtil<T extends ICachedEntity> {
 
     private final ObjectMapper objectMapper;
 

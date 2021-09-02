@@ -1,24 +1,26 @@
-package nr.was.domain.user.user;
+package nr.was.domain.user.user.entity;
 
-import lombok.*;
-import nr.was.domain.EntityMaster;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import nr.was.domain.BaseGameTimeCachedEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user") // character 는 예약어임
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)      // 빌더 패턴으로만 new 하기 위함.
 @AllArgsConstructor(access = AccessLevel.PROTECTED)     // 빌더 패턴으로만 new 하기 위함.
-@Builder
+@SuperBuilder
 //@DynamicUpdate // 변경한 필드만 대응
-public class User extends EntityMaster {
+public class User extends BaseGameTimeCachedEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
     private Long guid;
 
     private int level;

@@ -2,7 +2,7 @@ package nr.was.global.util.cache;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import nr.was.domain.EntityMaster;
+import nr.was.domain.ICachedEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Getter
 @RequiredArgsConstructor
-public class CacheSyncData<T extends EntityMaster> {
+public class CacheSyncData<T extends ICachedEntity> {
     private final String key;
     private CacheSyncState syncState = CacheSyncState.IDLE;
     private final Map<String, T> dataMap;

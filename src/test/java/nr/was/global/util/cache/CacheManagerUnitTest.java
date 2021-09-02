@@ -3,7 +3,7 @@ package nr.was.global.util.cache;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.domain.character.character.Character;
+import nr.was.domain.character.character.entity.Character;
 import nr.was.global.configuration.CacheConfiguration;
 import nr.was.global.configuration.RedisCacheConfiguration;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,7 +45,7 @@ class CacheManagerUnitTest {
 
     @BeforeEach
     void setUp() {
-        this.syncDataMap = new HashMap<>();
+        this.syncDataMap = new LinkedHashMap<>();
         this.cacheManager = new CacheManager<>(syncDataMap, cacheUtil);
 
         character1 = Character.builder()
