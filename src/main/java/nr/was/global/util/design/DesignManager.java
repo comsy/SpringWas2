@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.global.util.design.filter.DesignAttendance;
-import nr.was.global.util.design.filter.DesignVariableInfo;
+import nr.was.global.util.design.custom.DesignAttendance;
+import nr.was.global.util.design.custom.DesignVariableInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +48,7 @@ public class DesignManager {
     }
 
     @PostConstruct
-    public void init() {
+    public void init() throws IOException {
         log.debug("[DesignManager]init");
 
         designMap.clear();
@@ -71,23 +71,20 @@ public class DesignManager {
             String key = fileName.replace(prefix, "").replace(extensionName, "");
             log.debug("key : " + key);
 
-            try {
-                if(parserMap.containsKey(key)){
-                    DesignBase designBase = parserMap.get(key);
-                    designBase.filter(file);
-                    designMap.put(key, designBase);
+
+            if(parserMap.containsKey(key)){
+                DesignBase designBase = parserMap.get(key);
+                designBase.filter(file);
+                designMap.put(key, designBase);
+            }
+            else{
+                JsonNode jsonNode = objectMapper.readTree(file);
+                List<Map<String, Object>> commonDesign = new ArrayList<>();
+                for (JsonNode node : jsonNode) {
+                    Map<String, Object> nodeMap = objectMapper.convertValue(node, new TypeReference<>() {});
+                    commonDesign.add(nodeMap);
                 }
-                else{
-                    JsonNode jsonNode = objectMapper.readTree(file);
-                    List<Map<String, Object>> commonDesign = new ArrayList<>();
-                    for (JsonNode node : jsonNode) {
-                        Map<String, Object> nodeMap = objectMapper.convertValue(node, new TypeReference<>() {});
-                        commonDesign.add(nodeMap);
-                    }
-                    designMap.put(key, commonDesign);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+                designMap.put(key, commonDesign);
             }
         }
     }

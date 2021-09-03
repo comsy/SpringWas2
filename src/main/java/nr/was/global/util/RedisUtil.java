@@ -72,18 +72,13 @@ public class RedisUtil<T> {
         redisDataTemplate.opsForHash().put(key, id, value);
     }
 
-    public T findInHash(String key, int id, Class<T> classType) {
+    public T findInHash(String key, int id, Class<T> classType) throws JsonProcessingException {
         String jsonResult = (String) redisDataTemplate.opsForHash().get(key, id);
         if(StringUtils.hasLength(jsonResult)){
             return null;
         }
 
-        try {
-            return objectMapper.readValue(jsonResult, classType);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return objectMapper.readValue(jsonResult, classType);
     }
 
     public void deleteHash(String key, int id) {

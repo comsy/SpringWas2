@@ -1,4 +1,4 @@
-package nr.was.global.util.design.filter;
+package nr.was.global.util.design.custom;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;

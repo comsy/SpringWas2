@@ -3,7 +3,7 @@ package nr.was.global.util.design;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.global.util.design.filter.DesignVariableInfo;
+import nr.was.global.util.design.custom.DesignVariableInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
