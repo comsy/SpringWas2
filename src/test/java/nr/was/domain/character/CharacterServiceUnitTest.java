@@ -1,6 +1,6 @@
 package nr.was.domain.character;
 
-import nr.was.domain.character.character.CharacterDao;
+import nr.was.domain.character.data.CharacterDao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

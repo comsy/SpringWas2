@@ -3,7 +3,7 @@ package nr.was.global.util.cache;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.domain.character.character.entity.Character;
+import nr.was.domain.character.data.Character;
 import nr.was.global.configuration.CacheConfiguration;
 import nr.was.global.configuration.RedisCacheConfiguration;
 import org.junit.jupiter.api.BeforeEach;

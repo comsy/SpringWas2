@@ -1,6 +1,5 @@
-package nr.was.domain.character.character;
+package nr.was.domain.character.data;
 
-import nr.was.domain.character.character.entity.Character;
 import nr.was.global.util.cache.CacheManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +40,10 @@ class CharacterDaoUnitTest {
                 .characterId(1L)
                 .level(1)
                 .exp(0)
-                .category(0).build();
+                .category(0)
+                .createdDate(LocalDateTime.now())
+                .modifiedDate(LocalDateTime.now())
+                .build();
 
         character2 = Character.builder()
                 .id(2L)
@@ -48,7 +51,10 @@ class CharacterDaoUnitTest {
                 .characterId(1L)
                 .level(1)
                 .exp(0)
-                .category(0).build();
+                .category(0)
+                .createdDate(LocalDateTime.now())
+                .modifiedDate(LocalDateTime.now())
+                .build();
 
         characterList = new ArrayList<>();
         characterList.add(character1);

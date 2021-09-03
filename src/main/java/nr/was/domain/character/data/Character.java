@@ -1,4 +1,4 @@
-package nr.was.domain.character.character.entity;
+package nr.was.domain.character.data;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -61,5 +61,9 @@ public class Character extends BaseGameTimeCachedEntity {
         }
 
         return isLevelUp;
+    }
+
+    public void changeLevel(){
+        this.level++;
     }
 }

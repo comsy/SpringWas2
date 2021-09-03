@@ -1,8 +1,7 @@
-package nr.was.domain.user.user;
+package nr.was.domain.user.data;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.was.domain.user.user.entity.User;
 import nr.was.global.util.cache.CacheManager;
 import org.springframework.stereotype.Component;
 

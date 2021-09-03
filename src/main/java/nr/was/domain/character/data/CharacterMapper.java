@@ -1,7 +1,6 @@
-package nr.was.domain.character.character;
+package nr.was.domain.character.data;
 
 import nr.was.domain.GenericMapper;
-import nr.was.domain.character.character.entity.Character;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

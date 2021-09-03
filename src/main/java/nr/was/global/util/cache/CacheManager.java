@@ -109,6 +109,18 @@ public class CacheManager<T extends ICachedEntity> {
         cacheUtil.delCache(key);
     }
 
+    public void sync(String key){
+        CacheSyncData<T> syncData = syncDataMap.getOrDefault(key, null);
+        if(syncData != null){
+            if(syncData.getSyncState() == CacheSyncState.DIRTY){
+                log.debug("[CacheSyncUtil]sync 캐시 저장소에 저장함 : " + syncData.getKey() + " : " + syncDataMap.size());
+                cacheUtil.putCache(syncData.getKey(), syncData.getDataList());
+                syncDataMap.remove(key);
+                log.debug("[CacheSyncUtil]sync :" + syncData.getKey() + " : " + syncDataMap.size());
+            }
+        }
+    }
+
     public void syncAll(){
         syncDataMap.values().forEach(syncData->{
             if(syncData.getSyncState() == CacheSyncState.DIRTY){

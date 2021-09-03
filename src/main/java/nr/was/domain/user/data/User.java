@@ -1,4 +1,4 @@
-package nr.was.domain.user.user.entity;
+package nr.was.domain.user.data;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

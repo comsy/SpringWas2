@@ -2,12 +2,10 @@ package nr.was.global.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
-import nr.was.domain.BaseGameTimeCachedEntity;
 import nr.was.global.annotation.RepositoryLogMaster;
 import nr.was.global.annotation.RepositoryLogSlave;
 import nr.was.global.annotation.RepositoryRedis;
 import nr.was.global.annotation.RepositorySlave;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -54,7 +52,7 @@ public class DataSourceGameMasterConfiguration {
                 jpaProperties.getProperties(), new HibernateSettings());
         return builder.dataSource(gameMasterDataSource())
                 .properties(properties)
-                .packages("nr.was.**.entity")
+                .packages("nr.was.domain.**.data")
                 .persistenceUnit("gameMasterEntityManager")
                 .build();
     }

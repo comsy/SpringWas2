@@ -1,4 +1,4 @@
-package nr.was.domain.character.charactersub;
+package nr.was.domain.character.dataredis;
 
 import nr.was.domain.GenericMapper;
 import org.mapstruct.Mapper;

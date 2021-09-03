@@ -1,10 +1,9 @@
-package nr.was.domain.user.user;
+package nr.was.domain.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import nr.was.domain.BaseTimeDto;
-import nr.was.domain.user.user.entity.User;
 
 import java.io.Serializable;
 import java.util.List;
