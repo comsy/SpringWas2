@@ -1,8 +1,10 @@
 package nr.was.domain.character.log;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 //@Table(name = "tbl_character")
@@ -14,8 +16,9 @@ import javax.persistence.*;
 public class CharacterLog {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private UUID id;
 
     private Long guid;
 

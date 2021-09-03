@@ -4,15 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.global.util.design.filter.DesignVariableInfo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.Arrays;
 
@@ -38,20 +35,6 @@ class DesignManagerUnitTest {
     private String prefix;
 
     private final String extensionName = ".json";
-
-
-    @PostConstruct
-    void init() {
-    }
-
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     @DisplayName("1. 폴더 내 모든 *.json 파일을 불러온다.")

@@ -1,13 +1,11 @@
 package nr.was.domain.character.data;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import nr.was.domain.BaseGameTimeCachedEntity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "characters") // character 는 예약어임
@@ -65,5 +63,18 @@ public class Character extends BaseGameTimeCachedEntity {
 
     public void changeLevel(){
         this.level++;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Character character = (Character) o;
+        return category == character.category && level == character.level && exp == character.exp && id.equals(character.id) && guid.equals(character.guid) && Objects.equals(characterId, character.characterId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, guid, category, characterId, level, exp);
     }
 }

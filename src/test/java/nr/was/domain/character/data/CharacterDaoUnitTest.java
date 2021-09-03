@@ -1,7 +1,7 @@
 package nr.was.domain.character.data;
 
 import nr.was.global.util.cache.CacheManager;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,12 +28,12 @@ class CharacterDaoUnitTest {
     @InjectMocks
     private CharacterDao characterDao;
 
-    private Character character1;
-    private Character character2;
-    private List<Character> characterList;
+    private static Character character1;
+    private static Character character2;
+    private static List<Character> characterList;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void init() {
         character1 = Character.builder()
                 .id(1L)
                 .guid(1L)
@@ -94,19 +94,5 @@ class CharacterDaoUnitTest {
                 .hasSize(2)
                 .containsExactly(character1, character2);
     }
-
-    @Test
-    public void dd() throws Exception {
-        //given
-
-        //when
-
-        //then
-    }
-
-
-
-
-
 
 }

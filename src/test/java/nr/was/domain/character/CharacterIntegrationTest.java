@@ -4,13 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.domain.character.api.CharacterAddApi;
 import nr.was.domain.character.api.CharacterFindApi;
-import nr.was.domain.character.data.CharacterDao;
 import nr.was.domain.character.data.Character;
+import nr.was.domain.character.data.CharacterDao;
+import nr.was.global.util.cache.CacheManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.cache.CacheType;
-import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -19,9 +19,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * 통합 테스트
+ * 통합 테스트 - TODO : Controller 와 Dao 테스트를 하도록 한다.
  * WebEnvironment.MOCK - 가짜 톰캣으로 테스트
  * WebEnvironment.RANDOM_PORT - 실제 톰캣으로 테스트
  * AutoConfigureMockMvc - MockMvc 를 IOC 에 등록
@@ -38,15 +41,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @Transactional
 @AutoConfigureMockMvc
-@AutoConfigureCache(cacheProvider = CacheType.SIMPLE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class CharacterControllerIntegrationTest {
+class CharacterIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private CharacterDao characterDao;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private CacheManager<?> cacheManager;
 
     @Value("${test.api.version}")
     private String version;
@@ -56,8 +64,96 @@ class CharacterControllerIntegrationTest {
 
     private final Long guid = 1L;
 
+    private Character character1;
+    private Character character2;
+    private List<Character> characterList;
+
+    @PostConstruct
+    void init() {
+        character1 = Character.builder()
+                .id(1L)
+                .guid(1L)
+                .characterId(1L)
+                .level(1)
+                .exp(0)
+                .category(0)
+                .createdDate(LocalDateTime.now())
+                .modifiedDate(LocalDateTime.now())
+                .build();
+
+        character2 = Character.builder()
+                .id(2L)
+                .guid(1L)
+                .characterId(1L)
+                .level(1)
+                .exp(0)
+                .category(0)
+                .createdDate(LocalDateTime.now())
+                .modifiedDate(LocalDateTime.now())
+                .build();
+
+        characterList = new ArrayList<>();
+        characterList.add(character1);
+        characterList.add(character2);
+    }
+
+    @AfterEach
+    void tearDown() {
+        // 캐시매니저는 Service 단위로만 AOP 진행되므로 강제로 호출필요.
+        cacheManager.rollbackAll();
+    }
+
     @Test
-    public void 테스트_findAll() throws Exception {
+    public void DAO_getList() throws Exception {
+        //given
+
+        //when
+        List<Character> characterList = characterDao.getList(guid);
+
+        //then
+        assertThat(characterList)
+                .hasSize(0);
+    }
+
+    @Test
+    public void DAO_getList_saveEntity() throws Exception {
+        //given
+        List<Character> characterList = characterDao.getList(guid);
+        assertThat(characterList)
+                .hasSize(0);
+
+        characterDao.saveEntity(character1);
+        characterDao.saveEntity(character2);
+
+        //when
+        characterList = characterDao.getList(guid);
+
+        //then
+        assertThat(characterList)
+                .hasSize(2);
+    }
+
+    @Test
+    public void DAO_getEntity() throws Exception {
+        //given
+        List<Character> characterList = characterDao.getList(guid);
+        characterDao.saveEntity(character1);
+        characterDao.saveEntity(character2);
+        // repository flush and cache sync
+        characterDao.flush();
+        characterDao.sync(character1.getGuid());
+
+        //when
+        Optional<Character> entity = characterDao.getEntity(guid, character1.getId());
+
+        //then
+        Character character = entity.orElse(null);
+        assertThat(character).isNotNull();
+        assertThat(character).isEqualTo(character1);
+    }
+
+    @Test
+    public void 컨트롤러_findAll() throws Exception {
         log.info("테스트_findAll 시작 ===============================================================================");
         //given
         CharacterFindApi.Request request = new CharacterFindApi.Request(version, token, guid);
@@ -81,7 +177,7 @@ class CharacterControllerIntegrationTest {
     }
 
     @Test
-    public void 테스트_add() throws Exception {
+    public void 컨트롤러_add() throws Exception {
         log.info("테스트_add 시작 ===============================================================================");
         //given
         CharacterAddApi.Request request = new CharacterAddApi.Request(version, token, guid);
@@ -143,9 +239,6 @@ class CharacterControllerIntegrationTest {
 
         Character character2 = list.get(0);
         assertThat(modified1).isNotEqualTo(character2.getModifiedDate().toString());
-
-        characterDao.deleteCache(guid);
-
     }
 
     @Test
@@ -160,5 +253,8 @@ class CharacterControllerIntegrationTest {
         log.debug(format);
         //then
         assertThat(date.toString()).isEqualTo(date2.toString());
+
+        String s = objectMapper.writeValueAsString(date);
+        log.debug(s);
     }
 }

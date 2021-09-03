@@ -9,11 +9,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.cache.CacheManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +20,13 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-@AutoConfigureCache
 @SpringBootTest(classes = {
         CacheUtil.class,
         ObjectMapper.class,
         CacheConfiguration.class,
         RedisCacheConfiguration.class
 })
+@CacheConfig(cacheManager = "simpleCacheManager")
 class CacheUtilUnitTest {
 
     @Autowired
@@ -39,8 +38,6 @@ class CacheUtilUnitTest {
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
 
-    @Autowired
-    CacheManager redisCacheManager;
 
     private Character character1;
     private Character character2;

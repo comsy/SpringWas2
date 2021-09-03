@@ -1,7 +1,6 @@
 package nr.was.domain.character;
 
 import nr.was.domain.character.data.CharacterDao;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,13 +21,5 @@ class CharacterServiceUnitTest {
     @Mock
     private CharacterDao characterDao;
 
-    @Test
-    public void asdf() throws Exception {
-        //given
 
-
-        //when
-
-        //then
-    }
 }

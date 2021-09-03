@@ -5,25 +5,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import nr.was.domain.character.data.Character;
 import nr.was.global.configuration.CacheConfiguration;
-import nr.was.global.configuration.RedisCacheConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-@AutoConfigureCache
 @SpringBootTest(classes = {
         CacheUtil.class,
         ObjectMapper.class,
-        CacheConfiguration.class,
-        RedisCacheConfiguration.class
+        CacheConfiguration.class
 })
 class CacheManagerUnitTest {
 

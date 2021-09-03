@@ -37,7 +37,7 @@ public class CacheUtil<T extends ICachedEntity> {
             return objectMapper.convertValue(cacheHashMap, collectionType);
         }
         catch (RedisException | RedisConnectionFailureException e){
-            log.error("[CacheManager]getCache error : " + e.getMessage());
+            log.error("[CacheUtil]getCache error : " + e.getMessage());
             return null;
         }
     }
@@ -47,7 +47,7 @@ public class CacheUtil<T extends ICachedEntity> {
             self.put(key, value);
         }
         catch (RedisException  | RedisConnectionFailureException e){
-            log.error("[CacheManager]putCache error : " + e.getMessage());
+            log.error("[CacheUtil]putCache error : " + e.getMessage());
         }
     }
 
@@ -56,23 +56,23 @@ public class CacheUtil<T extends ICachedEntity> {
             self.del(key);
         }
         catch (RedisException | RedisConnectionFailureException e){
-            log.error("[CacheManager]delCache error : " + e.getMessage());
+            log.error("[CacheUtil]delCache error : " + e.getMessage());
         }
     }
 
 
 
-    @Cacheable(value = "cache", key = "#key", cacheManager = "redisCacheManager", unless = "#result == null")
+    @Cacheable(value = "cache", key = "#key", /*cacheManager = "redisCacheManager",*/ unless = "#result == null")
     public List<T> get(String key) {
         return null;
     }
 
-    @CachePut(value = "cache", key = "#key", cacheManager = "redisCacheManager", unless = "#result == null")
+    @CachePut(value = "cache", key = "#key", /*cacheManager = "redisCacheManager",*/ unless = "#result == null")
     public List<T> put(String key, List<T> value) {
         return value;
     }
 
-    @CacheEvict(value = "cache", key = "#key", cacheManager = "redisCacheManager")
+    @CacheEvict(value = "cache", key = "#key"/*, cacheManager = "redisCacheManager"*/)
     public void del(String key) {
     }
 }
