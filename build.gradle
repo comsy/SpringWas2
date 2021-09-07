@@ -1,65 +1,79 @@
-plugins {
-    id 'org.springframework.boot' version '2.5.3'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'java'
-}
-
-group = 'nr'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.5.4"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
     }
 }
 
-repositories {
-    mavenCentral()
+subprojects {
+    group = 'nr'
+    version = '0.0.1-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+
+        // lombok, mapstruct - https://github.com/mapstruct/mapstruct
+        implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+        compileOnly 'org.projectlombok:lombok'
+
+        // lombok 과 mapstruct 순서 중요함(builder 패턴 사용 위해)
+        annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+        annotationProcessor 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-aop'
-
-    // P6spy - https://github.com/gavlyukovskiy/spring-boot-data-source-decorator
-    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
-    // SENTRY - https://docs.sentry.io/platforms/java/guides/spring-boot/
-    implementation 'io.sentry:sentry-spring-boot-starter:5.1.0'
-    implementation 'io.sentry:sentry-logback:5.1.0'
-    // GSON - https://github.com/google/gson
-    implementation 'com.google.code.gson:gson:2.8.7'
-    // GSON SIMPLE
-    //implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-
-    // logback-more-appenders - https://github.com/sndyuk/logback-more-appenders
-    implementation 'com.sndyuk:logback-more-appenders:1.8.6'
-    // fluentd - https://github.com/komamitsu/fluency
-    implementation "org.komamitsu:fluency-core:2.6.0"
-    implementation "org.komamitsu:fluency-fluentd:2.6.0"
-
-    // lombok, mapstruct - https://github.com/mapstruct/mapstruct
-    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-    implementation 'org.projectlombok:lombok'
-
-    // lombok 과 mapstruct 순서 중요함(builder 패턴 사용 위해)
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
-    annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
-
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'mysql:mysql-connector-java'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.h2database:h2'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+project(':game') {
+    dependencies {
+        implementation project(':core')
+        implementation project(':common')
+        implementation project(':domain:db')
+        implementation project(':domain:redis')
+    }
 }
 
-test {
-    useJUnitPlatform()
+project(':common') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+project(':domain:db') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+
+project(':domain:redis') {
+    dependencies {
+        implementation project(':core')
+    }
 }

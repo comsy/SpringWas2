@@ -1,0 +1,25 @@
+bootJar {
+    archivesBaseName = 'nr_game'
+}
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // transaction
+
+
+    // SENTRY - https://docs.sentry.io/platforms/java/guides/spring-boot/
+    implementation 'io.sentry:sentry-spring-boot-starter:5.1.0'
+    implementation 'io.sentry:sentry-logback:5.1.0'
+
+    // logback-more-appenders - https://github.com/sndyuk/logback-more-appenders
+    implementation 'com.sndyuk:logback-more-appenders:1.8.6'
+    // fluentd - https://github.com/komamitsu/fluency
+    implementation "org.komamitsu:fluency-core:2.6.0"
+    implementation "org.komamitsu:fluency-fluentd:2.6.0"
+
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}

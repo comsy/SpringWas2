@@ -1,0 +1,12 @@
+bootJar.enabled false
+jar.enabled true
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // GSON - https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.8.7'
+    // GSON SIMPLE
+    //implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+}
