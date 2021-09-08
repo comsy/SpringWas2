@@ -37,7 +37,7 @@ public class DataSourceLogMasterConfiguration {
     private final HibernateProperties hibernateProperties;
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.log.master")
+    @ConfigurationProperties(prefix = "datasource.log.master")
     public DataSource logMasterDataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)

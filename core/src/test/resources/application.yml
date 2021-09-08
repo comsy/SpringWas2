@@ -1,7 +1,7 @@
 spring:
+  profiles:
+    group:
+      test:
+        - "test-core"
 
-  cache:
-    redis:
-      key-prefix: "test:"
-      cache-null-values: false
-      time-to-live: 1D
+    default: test

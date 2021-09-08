@@ -21,6 +21,7 @@ dependencies {
     implementation "org.komamitsu:fluency-core:2.6.0"
     implementation "org.komamitsu:fluency-fluentd:2.6.0"
 
-
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    testImplementation 'com.h2database:h2'
 }

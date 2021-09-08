@@ -15,6 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Slf4j
 @AutoConfigureMockMvc
 @SpringBootTest
-class GameApplicationTest {
+public class GameApplicationTest {
 
 }

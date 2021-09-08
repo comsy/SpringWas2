@@ -37,7 +37,7 @@ public class DataSourceGameMasterConfiguration {
 
     @Bean
     @Primary
-    @ConfigurationProperties(prefix = "spring.datasource.game.master")
+    @ConfigurationProperties(prefix = "datasource.game.master")
     public DataSource gameMasterDataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)

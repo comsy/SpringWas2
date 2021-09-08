@@ -1,4 +1,4 @@
-package nr.server.core.config;
+package core.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.CacheManager;
@@ -14,9 +14,27 @@ import java.util.List;
 @Configuration
 @EnableCaching
 @RequiredArgsConstructor
-public class CacheConfig {
+public class TestCacheConfig {
 
+    @Bean
     @Primary
+    public CacheManager redisCacheManager() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(List.of(
+                new ConcurrentMapCache("cache")
+        ));
+        return cacheManager;
+    }
+
+    @Bean
+    public CacheManager redisCacheManager7Day() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(List.of(
+                new ConcurrentMapCache("cache")
+        ));
+        return cacheManager;
+    }
+
     @Bean
     public CacheManager simpleCacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();

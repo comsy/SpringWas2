@@ -16,10 +16,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @RequiredArgsConstructor
 public class RedisCacheConfig {
 
-    @Value("${spring.redis.cache.port}")
+    @Value("${cache.redis.port}")
     private int port;
 
-    @Value("${spring.redis.cache.host}")
+    @Value("${cache.redis.host}")
     private String host;
 
     private final ObjectMapper objectMapper;

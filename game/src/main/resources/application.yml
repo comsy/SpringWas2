@@ -2,10 +2,16 @@ spring:
   profiles:
     group:
       local:
-        - "common"
-        - "local"
+        - "local-core"
+        - "local-common"
+        - "local-domain-db"
+        - "local-domain-redis"
+        - "local-game"
       dev:
-        - "common"
-        - "dev"
+        - "dev-core"
+        - "dev-common"
+        - "dev-domain-db"
+        - "dev-domain-redis"
+        - "dev-game"
 
     default: local

@@ -1,0 +1,67 @@
+spring:
+  config:
+    activate:
+      on-profile: "local-domain-db"
+  task:
+    execution:
+      pool:
+        core-size: 10         # 최초에 생성할 Pool 개수
+        max-size: 50          # 몇개까지 Pool 을 생성할 것인지
+        queue-capacity: 100   # Async 처리 시 Queue Size - 설정하지 않으면 Integer.MAX 이기 때문에 성능에 문제가 발생
+      thread-name-prefix: Executor-
+
+  jpa:
+    hibernate:
+      #naming:
+        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: update
+      use-new-id-generator-mappings: false # IDENTITY : auto increment
+
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+    open-in-view: false
+
+## CUSTOM
+# DB
+datasource:
+  game:
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://sl-db-011:3306/ZCOMSY?characterEncoding=utf8&serverTimezone=Asia/Seoul
+      username: red_database
+      password: 123qwe
+      max-lifetime: 30000 # 30000ms(30초, hikari min) 동안 사용안한 connection 풀에서 제거 - 컴투스기준 5초(wait_timeout) - 이거 높여야함.
+      leak-detection-threshold: 5000
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://sl-db-011:3306/ZCOMSY_SLAVE?characterEncoding=utf8&serverTimezone=Asia/Seoul
+      username: red_database
+      password: 123qwe
+      max-lifetime: 30000 # 30000ms(30초, hikari min) 동안 사용안한 connection 풀에서 제거 - 컴투스기준 5초(wait_timeout) - 이거 높여야함.
+      leak-detection-threshold: 5000
+  log:
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://sl-db-011:3306/ZCOMSY_LOG?characterEncoding=utf8&serverTimezone=Asia/Seoul
+      username: red_database
+      password: 123qwe
+      max-lifetime: 30000 # 30000ms(30초, hikari min) 동안 사용안한 connection 풀에서 제거 - 컴투스기준 5초(wait_timeout) - 이거 높여야함.
+      leak-detection-threshold: 5000
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://sl-db-011:3306/ZCOMSY_LOG?characterEncoding=utf8&serverTimezone=Asia/Seoul
+      username: red_database
+      password: 123qwe
+      max-lifetime: 30000 # 30000ms(30초, hikari min) 동안 사용안한 connection 풀에서 제거 - 컴투스기준 5초(wait_timeout) - 이거 높여야함.
+      leak-detection-threshold: 5000
+
+# P6spy
+decorator.datasource.p6spy:
+  enable-logging: true
+  multiline: true
+  logging: slf4j
+  tracing.include-parameter-values: true

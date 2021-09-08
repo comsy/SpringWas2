@@ -30,10 +30,10 @@ public class RedisDataConfiguration {
 
     private final ObjectMapper objectMapper;
 
-    @Value("${spring.redis.data.port}")
+    @Value("${redis.data.port}")
     private int port;
 
-    @Value("${spring.redis.data.host}")
+    @Value("${redis.data.host}")
     private String host;
 
     @Bean

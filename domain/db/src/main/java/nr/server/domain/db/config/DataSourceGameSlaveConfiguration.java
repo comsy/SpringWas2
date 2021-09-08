@@ -37,7 +37,7 @@ public class DataSourceGameSlaveConfiguration {
     private final HibernateProperties hibernateProperties;
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.game.slave")
+    @ConfigurationProperties(prefix = "datasource.game.slave")
     public DataSource gameSlaveDataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)

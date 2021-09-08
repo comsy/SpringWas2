@@ -1,3 +1,7 @@
-design:
-  path: /game/nr/table/
-  prefix: "SL_Table_"
+spring:
+  profiles:
+    group:
+      test:
+        - "test-common"
+
+    default: test

@@ -1,0 +1,59 @@
+spring:
+  config:
+    activate:
+      on-profile: "test-domain-db"
+  task:
+    execution:
+      pool:
+        core-size: 10         # 최초에 생성할 Pool 개수
+        max-size: 50          # 몇개까지 Pool 을 생성할 것인지
+        queue-capacity: 100   # Async 처리 시 Queue Size - 설정하지 않으면 Integer.MAX 이기 때문에 성능에 문제가 발생
+      thread-name-prefix: Executor-
+
+  jpa:
+    hibernate:
+      #naming:
+        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: update
+      use-new-id-generator-mappings: false # IDENTITY : auto increment
+
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+    open-in-view: false
+
+## CUSTOM
+# DB
+datasource:
+  game:
+    master:
+      driverClassName: org.h2.Driver
+      jdbcUrl: jdbc:h2:mem:gameMaster
+      username: sa
+      passwd:
+    slave:
+      driverClassName: org.h2.Driver
+      jdbcUrl: jdbc:h2:mem:gameSlave
+      username: sa
+      passwd:
+  log:
+    master:
+      driverClassName: org.h2.Driver
+      jdbcUrl: jdbc:h2:mem:logMaster
+      username: sa
+      passwd:
+    slave:
+      driverClassName: org.h2.Driver
+      jdbcUrl: jdbc:h2:mem:logSlave
+      username: sa
+      passwd:
+
+# P6spy
+decorator.datasource.p6spy:
+  enable-logging: true
+  multiline: true
+  logging: slf4j
+  tracing.include-parameter-values: true

@@ -2,7 +2,7 @@ package nr.server.core.cache;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import nr.server.core.config.CacheConfig;
+import nr.server.core.config.TestCacheConfig;
 import nr.server.domain.db.data.character.data.Character;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,10 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = {
         CacheUtil.class,
         ObjectMapper.class,
-        CacheConfig.class,
+        TestCacheConfig.class,
         //RedisCacheConfiguration.class
 })
-//@CacheConfig(cacheManager = "simpleCacheManager")
+//@org.springframework.cache.annotation.CacheConfig(cacheManager = "simpleCacheManager")
 class CacheUtilUnitTest {
 
     @Autowired

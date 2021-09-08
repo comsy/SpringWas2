@@ -3,6 +3,7 @@ package nr.server.core.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
@@ -29,11 +30,12 @@ public class CacheConfig {
 
     private final ObjectMapper objectMapper;
 
-    @Value("${spring.redis.cache.ttl}")
+    @Value("${cache.redis.ttl}")
     private Long ttl;
 
     @Bean
     @Primary
+    @ConditionalOnMissingBean
     public CacheManager redisCacheManager() {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
@@ -46,6 +48,7 @@ public class CacheConfig {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public CacheManager redisCacheManager7Day() {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
@@ -58,6 +61,7 @@ public class CacheConfig {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public CacheManager simpleCacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         cacheManager.setCaches(List.of(
