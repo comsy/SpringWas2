@@ -2,6 +2,26 @@ spring:
   config:
     activate:
       on-profile: "local-game"
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
+        username: admin
+        password: admin
+        instance:
+          metadata:
+            user.name: admin
+            user.password: admin
+          service-url: http://localhost:9080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 server:
   port: 9080

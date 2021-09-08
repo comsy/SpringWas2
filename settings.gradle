@@ -6,3 +6,5 @@ findProject(':domain:db')?.name = 'db'
 include 'domain:redis'
 findProject(':domain:redis')?.name = 'redis'
 include 'game'
+include 'admin'
+

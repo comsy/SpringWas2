@@ -1,0 +1,23 @@
+bootJar {
+    archivesBaseName = 'nr_admin'
+}
+jar {
+    enabled = true
+}
+
+ext {
+    set('springBootAdminVersion', "2.4.3")
+}
+
+
+dependencies {
+    implementation 'de.codecentric:spring-boot-admin-starter-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+    }
+}

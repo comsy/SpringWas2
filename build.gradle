@@ -22,6 +22,10 @@ subprojects {
         mavenCentral()
     }
 
+    ext {
+        set('springBootAdminVersion', "2.4.3")
+    }
+
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
 
@@ -41,6 +45,12 @@ subprojects {
         testAnnotationProcessor 'org.projectlombok:lombok'
     }
 
+    dependencyManagement {
+        imports {
+            mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+        }
+    }
+
     configurations {
         compileOnly {
             extendsFrom annotationProcessor
@@ -49,15 +59,6 @@ subprojects {
 
     test {
         useJUnitPlatform()
-    }
-}
-
-project(':game') {
-    dependencies {
-        implementation project(':core')
-        implementation project(':common')
-        implementation project(':domain:db')
-        implementation project(':domain:redis')
     }
 }
 
@@ -76,5 +77,19 @@ project(':domain:db') {
 project(':domain:redis') {
     dependencies {
         implementation project(':core')
+    }
+}
+
+project(':game') {
+    dependencies {
+        implementation project(':core')
+        implementation project(':common')
+        implementation project(':domain:db')
+        implementation project(':domain:redis')
+    }
+}
+
+project(':admin') {
+    dependencies {
     }
 }
