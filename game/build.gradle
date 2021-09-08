@@ -10,7 +10,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // transaction
 
-
     // SENTRY - https://docs.sentry.io/platforms/java/guides/spring-boot/
     implementation 'io.sentry:sentry-spring-boot-starter:5.1.0'
     implementation 'io.sentry:sentry-logback:5.1.0'
@@ -23,5 +22,6 @@ dependencies {
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-cache'     // TestCacheConfig
     testImplementation 'com.h2database:h2'
 }

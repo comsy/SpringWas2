@@ -1,4 +1,4 @@
-package core.config;
+package nr.server.core.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.CacheManager;
@@ -16,23 +16,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestCacheConfig {
 
+    /**
+     * 테스트 용 캐시는 SimpleCacheManager 를 사용하게 한다.
+     */
+
     @Bean
     @Primary
     public CacheManager redisCacheManager() {
-        SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(List.of(
-                new ConcurrentMapCache("cache")
-        ));
-        return cacheManager;
+        return simpleCacheManager();
     }
 
     @Bean
     public CacheManager redisCacheManager7Day() {
-        SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(List.of(
-                new ConcurrentMapCache("cache")
-        ));
-        return cacheManager;
+        return simpleCacheManager();
     }
 
     @Bean
