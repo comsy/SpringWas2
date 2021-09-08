@@ -15,7 +15,7 @@
     <springProperty scope="context" name="HIKARI_LOG_LEVEL" source="logging.level.hikari"/>
 
     <!-- ACCESS LOG -->
-    <logger name="nr.was.global.interceptor.LoggingInterceptor" level="INFO" additivity="false">
+    <logger name="nr.server.common.interceptor.LoggingInterceptor" level="INFO" additivity="false">
         <springProfile name="local||dev">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="ACCESS"/>
@@ -26,7 +26,7 @@
     <logger name="org.apache" level="${APACHE_LOG_LEVEL}"/>
     <logger name="org.springframework" level="${SPRING_LOG_LEVEL}"/>
     <logger name="org.hibernate" level="${HIBERNATE_LOG_LEVEL}"/>
-    <logger name="nr.was" level="${WAS_LOG_LEVEL}"/>
+    <logger name="nr.server" level="${WAS_LOG_LEVEL}"/>
     <logger name="com.zaxxer.hikari" level="${HIKARI_LOG_LEVEL}"/>
 
     <!-- ROOT LOG -->

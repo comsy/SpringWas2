@@ -22,7 +22,7 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "nr.server.domain.db",
+        basePackages = "nr.server.domain.db.data",
         excludeFilters = @ComponentScan.Filter(
                 type = FilterType.ANNOTATION,
                 classes = {RepositorySlave.class, RepositoryLogMaster.class, RepositoryLogSlave.class}
@@ -51,7 +51,7 @@ public class DataSourceGameMasterConfiguration {
                 jpaProperties.getProperties(), new HibernateSettings());
         return builder.dataSource(gameMasterDataSource())
                 .properties(properties)
-                .packages("nr.server.domain.db.**.data")
+                .packages("nr.server.domain.db.data.**.data")
                 .persistenceUnit("gameMasterEntityManager")
                 .build();
     }

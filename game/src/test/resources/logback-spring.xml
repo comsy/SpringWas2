@@ -15,7 +15,7 @@
     <logger name="org.apache" level="${APACHE_LOG_LEVEL}"/>
     <logger name="org.springframework" level="${SPRING_LOG_LEVEL}"/>
     <logger name="org.hibernate" level="${HIBERNATE_LOG_LEVEL}"/>
-    <logger name="nr.was" level="${WAS_LOG_LEVEL}"/>
+    <logger name="nr.server" level="${WAS_LOG_LEVEL}"/>
     <logger name="com.zaxxer.hikari" level="${HIKARI_LOG_LEVEL}"/>
 
     <!-- ROOT LOG -->

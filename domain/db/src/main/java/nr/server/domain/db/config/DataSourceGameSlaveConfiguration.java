@@ -23,7 +23,7 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "nr.server.domain.db",
+        basePackages = "nr.server.domain.db.data",
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.ANNOTATION,
                 classes = {RepositorySlave.class}
@@ -50,7 +50,7 @@ public class DataSourceGameSlaveConfiguration {
                 jpaProperties.getProperties(), new HibernateSettings());
         return builder.dataSource(gameSlaveDataSource())
                 .properties(properties)
-                .packages("nr.server.domain.db.**.data")
+                .packages("nr.server.domain.db.data.**.data")
                 .persistenceUnit("gameSlaveEntityManager")
                 .build();
     }

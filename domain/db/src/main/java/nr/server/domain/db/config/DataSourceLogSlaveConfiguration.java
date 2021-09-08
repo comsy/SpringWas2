@@ -23,7 +23,7 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "nr.server.domain.db",
+        basePackages = "nr.server.domain.db.data",
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.ANNOTATION,
                 classes = {RepositoryLogSlave.class}
@@ -50,7 +50,7 @@ public class DataSourceLogSlaveConfiguration {
                 jpaProperties.getProperties(), new HibernateSettings());
         return builder.dataSource(logSlaveDataSource())
                 .properties(properties)
-                .packages("nr.server.domain.db.**.log")
+                .packages("nr.server.domain.db.data.**.log")
                 .persistenceUnit("logSlaveEntityManager")
                 .build();
     }

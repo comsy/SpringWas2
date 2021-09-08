@@ -16,6 +16,11 @@ cache:
     - .gradle/wrapper
     - .gradle/caches
     - build/
+    - core/build
+    - common/build
+    - domain/db/build
+    - domain/redis/build
+    - game/build
 
 build_dev:
   stage: build
