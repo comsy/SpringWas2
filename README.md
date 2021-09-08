@@ -4,7 +4,7 @@ RED스튜디오 serverWas
 * 모듈
   > 의존성 관리, 계층화된 모듈 레이어로 분리
   
-  * ####base 모듈
+  * #### base 모듈
     > 아래는 큰 분류 이며 각각 여러개의 모듈을 가질 수 있다.
     * :core
       * 모든 모듈이 가지게 될 코어 라이브러리
@@ -16,7 +16,7 @@ RED스튜디오 serverWas
     * :domain
       * 도메인 관련된 것들을 도메인 별로 분류해서 구성한다.
       * Entity, Repository, Dto, Dao(Repository+Cache)
-  * ####애플리케이션 모듈
+  * #### 애플리케이션 모듈
     > 어플리케이션 모듈은 base 모듈 중 사용할 것만을 배치한다.
     * :game
       * 게임 API WAS 서버
