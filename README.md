@@ -1,7 +1,7 @@
 RED스튜디오 serverWas
 =============
 
-* 모듈
+## 모듈
   > 의존성 관리, 계층화된 모듈 레이어로 분리
   
   * #### base 모듈
@@ -16,13 +16,13 @@ RED스튜디오 serverWas
     * :domain
       * 도메인 관련된 것들을 도메인 별로 분류해서 구성한다.
       * Entity, Repository, Dto, Dao(Repository+Cache)
+      
   * #### 애플리케이션 모듈
-    > 어플리케이션 모듈은 base 모듈 중 사용할 것만을 배치한다.
-    * :game
-      * 게임 API WAS 서버
-    * :admin
-      * 서버 모니터링
+      > 어플리케이션 모듈은 base 모듈 중 사용할 것만을 배치한다.
+      * :game
+        * 게임 API WAS 서버
+      * :admin
+        * 서버 모니터링
 
-* 참조
-   * 멀티모듈 설계 - [멀티모듈 설계 이야기 with Spring, Gradle](https://techblog.woowahan.com/2637/)
-   * 
+  * #### 참조
+     * 멀티모듈 설계 - [멀티모듈 설계 이야기 with Spring, Gradle](https://techblog.woowahan.com/2637/)
