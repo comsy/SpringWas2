@@ -17,7 +17,9 @@ cache:
     - .gradle/caches
     - build/
     - core/build
+    - core/*/build
     - common/build
+    - common/*/build
     - domain/db/build
     - domain/redis/build
     - game/build
