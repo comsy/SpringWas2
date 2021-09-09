@@ -1,7 +1,7 @@
 package nr.server.domain.db.data.character.data;
 
 import lombok.extern.slf4j.Slf4j;
-import nr.server.domain.db.config.JpaAuditingConfiguration;
+import nr.server.domain.db.config.JpaAuditingConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest(includeFilters = @ComponentScan.Filter(
         type = FilterType.ASSIGNABLE_TYPE,
         classes = {
-                JpaAuditingConfiguration.class // JpaAuditing 위해..
+                JpaAuditingConfig.class // JpaAuditing 위해..
         }
 )) // Repository 를 IOC 에 등록해줌
 class CharacterRepositoryUnitTest {

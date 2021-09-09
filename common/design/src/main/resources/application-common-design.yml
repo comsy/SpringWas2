@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: "common-design"
+
+# 공통으로 /game/nr/table/ 경로를 사용할 것이기에 하나만 둔다.
+# 프로젝트에 따라 다른 경로 필요시 "xxx-common-design" 프로파일을 만들고 application.yml 에 - "xxx-common-design" 추가해야한다.
+
+design:
+  path: /game/nr/table/
+  prefix: "SL_Table_"

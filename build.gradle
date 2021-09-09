@@ -8,6 +8,7 @@ buildscript {
     }
 }
 
+// 하위 build.gradle 에 공통적으로 적용될 스크립트
 subprojects {
     group = 'nr'
     version = '0.0.1-SNAPSHOT'
@@ -87,6 +88,7 @@ project(':game') {
         implementation project(':core:cache-redis')
         implementation project(':core:mapper')
         implementation project(':common')
+        implementation project(':common:design')
         implementation project(':domain:db')
         implementation project(':domain:redis')
     }

@@ -2,7 +2,7 @@ package nr.server.domain.db.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
-import nr.server.domain.db.annotation.RepositoryLogMaster;
+import nr.server.domain.db.annotation.RepositorySlave;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -26,37 +26,37 @@ import java.util.Objects;
         basePackages = "nr.server.domain.db.data",
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.ANNOTATION,
-                classes = {RepositoryLogMaster.class}
+                classes = {RepositorySlave.class}
         ),
-        entityManagerFactoryRef = "logMasterEntityManagerFactory",
-        transactionManagerRef = "logMasterTransactionManager"
+        entityManagerFactoryRef = "gameSlaveEntityManagerFactory",
+        transactionManagerRef = "gameSlaveTransactionManager"
 )
 @RequiredArgsConstructor
-public class DataSourceLogMasterConfiguration {
+public class DataSourceGameSlaveConfig {
     private final JpaProperties jpaProperties;
     private final HibernateProperties hibernateProperties;
 
     @Bean
-    @ConfigurationProperties(prefix = "datasource.log.master")
-    public DataSource logMasterDataSource() {
+    @ConfigurationProperties(prefix = "datasource.game.slave")
+    public DataSource gameSlaveDataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
                 .build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean logMasterEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean gameSlaveEntityManagerFactory(EntityManagerFactoryBuilder builder) {
         var properties = hibernateProperties.determineHibernateProperties(
                 jpaProperties.getProperties(), new HibernateSettings());
-        return builder.dataSource(logMasterDataSource())
+        return builder.dataSource(gameSlaveDataSource())
                 .properties(properties)
-                .packages("nr.server.domain.db.data.**.log")
-                .persistenceUnit("logMasterEntityManager")
+                .packages("nr.server.domain.db.data.**.data")
+                .persistenceUnit("gameSlaveEntityManager")
                 .build();
     }
 
     @Bean
-    PlatformTransactionManager logMasterTransactionManager(EntityManagerFactoryBuilder builder) {
-        return new JpaTransactionManager(Objects.requireNonNull(logMasterEntityManagerFactory(builder).getObject()));
+    PlatformTransactionManager gameSlaveTransactionManager(EntityManagerFactoryBuilder builder) {
+        return new JpaTransactionManager(Objects.requireNonNull(gameSlaveEntityManagerFactory(builder).getObject()));
     }
 }

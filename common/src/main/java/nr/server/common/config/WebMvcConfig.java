@@ -1,4 +1,4 @@
-package nr.server.game.config;
+package nr.server.common.config;
 
 import lombok.RequiredArgsConstructor;
 import nr.server.common.interceptor.LoggingInterceptor;
@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @RequiredArgsConstructor
-public class WebMvcConfiguration implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     private final LoggingInterceptor loggingInterceptor;
 

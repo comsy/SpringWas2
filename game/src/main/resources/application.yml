@@ -3,13 +3,13 @@ spring:
     group:
       local:
         - "local-core-cache-redis"
-        - "local-common"
+        - "common-design"
         - "local-domain-db"
         - "local-domain-redis"
         - "local-game"
       dev:
         - "dev-core-cache-redis"
-        - "dev-common"
+        - "common-design"
         - "dev-domain-db"
         - "dev-domain-redis"
         - "dev-game"

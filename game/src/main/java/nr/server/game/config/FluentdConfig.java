@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-public class FluentdConfiguration {
+public class FluentdConfig {
 
     // DEFAULT
     @Value("${fluentd.defaults.host}")

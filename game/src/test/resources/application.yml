@@ -3,7 +3,7 @@ spring:
     group:
       test:
         - "test-core-cache-redis"
-        - "test-common"
+        - "common-design"
         - "test-domain-db"
         - "test-domain-redis"
         - "test-game"

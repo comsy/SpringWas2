@@ -1,17 +1,26 @@
 rootProject.name = 'was'
+
+// CORE
 include 'core'
 include 'core:cache-redis'
 findProject(':core:cache-redis')?.name = 'cache-redis'
+include 'core:mapper'
+findProject(':core:mapper')?.name = 'mapper'
 
+// COMMON
 include 'common'
+include 'common:design'
+findProject(':common:design')?.name = 'design'
 
+// DOMAIN
 include 'domain:db'
 findProject(':domain:db')?.name = 'db'
 include 'domain:redis'
 findProject(':domain:redis')?.name = 'redis'
 
+// APP
 include 'game'
 include 'admin'
-include 'core:mapper'
-findProject(':core:mapper')?.name = 'mapper'
+
+
 

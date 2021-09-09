@@ -1,8 +1,0 @@
-spring:
-  config:
-    activate:
-      on-profile: "local-common"
-
-design:
-  path: /game/nr/table/
-  prefix: "SL_Table_"

@@ -2,6 +2,6 @@ spring:
   profiles:
     group:
       test:
-        - "test-common"
+        - "common-design"
 
     default: test
