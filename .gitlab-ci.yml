@@ -20,8 +20,7 @@ cache:
     - core/*/build
     - common/build
     - common/*/build
-    - domain/db/build
-    - domain/redis/build
+    - domain/*/build
     - game/build
     - admin/build
 
@@ -32,14 +31,12 @@ build_dev:
     - ./gradlew build
     - echo "빌드 완료"
   tags:
-    - was
     - local
 
 test_dev:
   stage: test
   script:
-    - echo "이 Job은 무언가를 테스트합니다."
+    - echo "이 Job은 serverWas 프로젝트를 테스트합니다."
     - ./gradlew test
   tags:
-    - was
     - local
