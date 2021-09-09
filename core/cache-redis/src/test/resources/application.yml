@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    group:
+      test:
+        - "test-core-cache-redis"
+
+    default: test

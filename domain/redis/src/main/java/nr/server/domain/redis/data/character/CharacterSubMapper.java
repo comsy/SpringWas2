@@ -1,6 +1,6 @@
 package nr.server.domain.redis.data.character;
 
-import nr.server.core.base.GenericMapper;
+import nr.server.core.mapper.GenericMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

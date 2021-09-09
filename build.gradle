@@ -28,18 +28,16 @@ subprojects {
 
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
-
         // lombok, mapstruct - https://github.com/mapstruct/mapstruct
         implementation 'org.mapstruct:mapstruct:1.4.2.Final'
         //compileOnly 'org.projectlombok:lombok'
         implementation 'org.projectlombok:lombok'   // Runtime에 Slf4j 쓰기 때문
 
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
         // lombok 과 mapstruct 순서 중요함(builder 패턴 사용 위해)
         annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
         annotationProcessor 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
-
-        developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testAnnotationProcessor 'org.projectlombok:lombok'
@@ -71,18 +69,23 @@ project(':common') {
 project(':domain:db') {
     dependencies {
         implementation project(':core')
+        implementation project(':core:cache-redis')
+        implementation project(':core:mapper')
     }
 }
 
 project(':domain:redis') {
     dependencies {
         implementation project(':core')
+        implementation project(':core:mapper')
     }
 }
 
 project(':game') {
     dependencies {
         implementation project(':core')
+        implementation project(':core:cache-redis')
+        implementation project(':core:mapper')
         implementation project(':common')
         implementation project(':domain:db')
         implementation project(':domain:redis')

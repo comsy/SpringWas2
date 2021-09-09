@@ -2,13 +2,13 @@ spring:
   profiles:
     group:
       local:
-        - "local-core"
+        - "local-core-cache-redis"
         - "local-common"
         - "local-domain-db"
         - "local-domain-redis"
         - "local-game"
       dev:
-        - "dev-core"
+        - "dev-core-cache-redis"
         - "dev-common"
         - "dev-domain-db"
         - "dev-domain-redis"

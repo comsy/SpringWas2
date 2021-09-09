@@ -21,6 +21,7 @@ cache:
     - domain/db/build
     - domain/redis/build
     - game/build
+    - admin/build
 
 build_dev:
   stage: build

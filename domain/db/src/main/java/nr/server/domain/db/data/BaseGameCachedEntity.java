@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
-import nr.server.core.base.ICachedEntity;
+import nr.server.core.cacheRedis.base.ICachedEntity;
 
 import javax.persistence.MappedSuperclass;
 

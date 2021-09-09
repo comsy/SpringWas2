@@ -1,6 +1,6 @@
 package nr.server.domain.db.data.character.data;
 
-import nr.server.core.cache.CacheManager;
+import nr.server.core.cacheRedis.cache.CacheManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

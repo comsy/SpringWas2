@@ -2,7 +2,6 @@ spring:
   profiles:
     group:
       test:
-        - "test-core"
         - "test-domain-redis"
 
     default: test

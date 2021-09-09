@@ -2,7 +2,7 @@ package nr.server.game.domain.character;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import nr.server.core.cache.CacheManager;
+import nr.server.core.cacheRedis.cache.CacheManager;
 import nr.server.domain.db.data.character.data.Character;
 import nr.server.domain.db.data.character.data.CharacterDao;
 import nr.server.game.domain.character.api.CharacterAddApi;

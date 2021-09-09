@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: "test-core-cache-redis"
+
+  # spring cache config
+  cache:
+    redis:
+      key-prefix: "test:"
+      cache-null-values: false
+      time-to-live: 1D
+
+
+## redis db 사용 안함 - 클러스터 사용 시 db 사용 못함
+cache:
+  redis:
+    host: sl-redis-01
+    port: 6379
+    ttl: 86400  # 단위 초(s)

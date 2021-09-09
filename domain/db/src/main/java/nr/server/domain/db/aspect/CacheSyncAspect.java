@@ -2,8 +2,8 @@ package nr.server.domain.db.aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.server.core.base.ICachedEntity;
-import nr.server.core.cache.CacheManager;
+import nr.server.core.cacheRedis.base.ICachedEntity;
+import nr.server.core.cacheRedis.cache.CacheManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
