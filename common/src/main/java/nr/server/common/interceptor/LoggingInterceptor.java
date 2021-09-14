@@ -42,6 +42,15 @@ public class LoggingInterceptor implements HandlerInterceptor {
             HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
 
+        // POST 일때만 동작
+        if(!request.getMethod().equalsIgnoreCase("POST"))
+            return;
+        // JSON 일때만 동작
+        if(!request.getContentType().equalsIgnoreCase("application/json"))
+            return;
+        if(!response.getContentType().equalsIgnoreCase("application/json"))
+            return;
+
         final ContentCachingRequestWrapper cachingRequest = (ContentCachingRequestWrapper) request;
         final ContentCachingResponseWrapper cachingResponse = (ContentCachingResponseWrapper) response;
 
