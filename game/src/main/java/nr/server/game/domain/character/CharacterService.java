@@ -34,7 +34,7 @@ public class CharacterService {
     }
 
     @Transactional  // write 가 있는 경우
-    public CharacterAddExpApi.Response addCharacterExp(Long guid, Long id, int addExp){
+    CharacterAddExpApi.Response addCharacterExp(Long guid, Long id, int addExp){
         Optional<Character> optCharacter = characterDao.getEntity(guid, id);
         Character character = optCharacter.orElseThrow(()->new BusinessException(ErrorCode.CHARACTER_NOT_EXIST, "캐릭터가 없어요."));
 
@@ -50,7 +50,7 @@ public class CharacterService {
     }
 
     @Transactional
-    public CharacterAddApi.Response add(CharacterAddApi.Request request) {
+    CharacterAddApi.Response add(CharacterAddApi.Request request) {
         Long guid = request.getGuid();
         Character character = Character.builder()
                 .guid(guid)

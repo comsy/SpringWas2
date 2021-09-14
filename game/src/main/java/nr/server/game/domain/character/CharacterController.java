@@ -19,19 +19,19 @@ public class CharacterController {
     private final CharacterService characterService;
 
     @PostMapping("/character/add")
-    public CharacterAddApi.Response addCharacter(@RequestBody @Valid CharacterAddApi.Request request){
+    CharacterAddApi.Response addCharacter(@RequestBody @Valid CharacterAddApi.Request request){
 
         return characterService.add(request);
     }
 
     @PostMapping("/character/findList")
-    public CharacterFindApi.Response findCharacterList(@RequestBody @Valid CharacterFindApi.Request request){
+    CharacterFindApi.Response findCharacterList(@RequestBody @Valid CharacterFindApi.Request request){
 
         return characterService.findAll(request);
     }
 
     @PostMapping("/character/addExp")
-    public CharacterAddExpApi.Response cacheTest(@RequestBody @Valid CharacterAddExpApi.Request request){
+    CharacterAddExpApi.Response cacheTest(@RequestBody @Valid CharacterAddExpApi.Request request){
 
         Long guid = request.getGuid();
         Long id = request.getId();
