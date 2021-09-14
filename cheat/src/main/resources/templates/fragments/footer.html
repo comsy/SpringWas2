@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>samplefooter</title>
-</head>
-<body>
-<div th:fragment="footer1">
-    ===================== this is footer! ======================
-</div>
-</body>
+<html
+        lagn="ko"
+        xmlns:th="http://www.thymeleaf.org">
+
+<!-- Footer -->
+<th:block th:fragment="footerFragment">
+
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</th:block>
+
 </html>

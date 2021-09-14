@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+        lagn="ko"
+        xmlns:th="http://www.thymeleaf.org">
+
+<!-- 공통으로 쓰이는 script 파일을넣는다.-->
+<th:block th:fragment="scriptFragment">
+
+
+  <!-- Bootstrap core JavaScript-->
+<!--  <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>-->
+<!--  <script th:src="@{/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>-->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script th:src="@{/bootstrap/js/scripts.js}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+  <script th:src="@{/bootstrap/assets/demo/chart-area-demo.js}"></script>
+  <script th:src="@{/bootstrap/assets/demo/chart-bar-demo.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+  <script th:src="@{/bootstrap/js/datatables-simple-demo.js}"></script>
+
+
+</th:block>
+</html>

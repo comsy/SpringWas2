@@ -2,22 +2,31 @@
 <html lagn="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-    <meta charset="UTF-8" />
-    <title>thymeleaf layout</title>
-</head>
 
-<body>
+<!-- HEADER -->
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 
-    <!-- header -->
-    <th:block th:replace="fragments/header::header1"></th:block>
+<body class="sb-nav-fixed">
+    <!-- TOP -->
+    <th:block th:replace="fragments/top :: topbarFragment"></th:block>
 
-    <!-- content -->
-    <th:block layout:fragment="content"></th:block>
+    <!-- 사이드바 + 본문 + Footer -->
+    <div id="layoutSidenav">
+        <!-- 사이드바-->
+        <th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
-    <!-- footer -->
-    <th:block th:replace="fragments/footer::footer1"> </th:block>
+        <div id="layoutSidenav_content">
+            <!-- 본문-->
+            <th:block layout:fragment="content"></th:block>
 
+            <!-- 공통 하단-->
+            <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+        </div>
+
+
+    </div>
+    <!-- 공통 스크립트-->
+    <th:block th:replace="fragments/scripts :: scriptFragment"></th:block>
 </body>
 
 </html>
