@@ -1,0 +1,66 @@
+spring:
+  config:
+    activate:
+      on-profile: "test-cheat"
+
+server:
+  port: 9190
+
+logging:
+  level:
+    root: INFO
+    web: INFO
+    sql: INFO
+    was: DEBUG
+    hikari: INFO  # DEBUG 시 풀 내 connecton, close 정보 볼 수 있음.
+
+sentry:
+  dsn: https://3f0d7a32b63c4c0f8e12df4baecc4edf@o921467.ingest.sentry.io/5867907
+  #exception-resolver-order: 2147483647
+  environment: test-cheat
+  logging:
+    enabled: true
+    minimum-event-level: warn
+    minimum-breadcrumb-level: warn
+
+
+
+#CUSTOM
+
+fluentd:
+  defaults:
+    host: localhost
+    port: 24224
+    tag: spring.fluentd
+  dw:
+    host: localhost
+    port: 24224
+    tag: was.dw
+
+# LOGBACK CONFIG
+logback:
+  config.charset: UTF-8
+  console.pattern: "%clr(%5p) %clr(%d{yy-MM-dd HH:mm:ss}){magenta}[%thread] [%clr(%logger{0}){cyan}:%line] - %msg%n"
+  file:
+    path: log/test/cheat/
+    name: file.log
+    pattern: "%clr(%5p) %clr(%d{yy-MM-dd HH:mm:ss}){magenta}[%thread] [%clr(%logger{35}){cyan}:%line] - %msg%n"
+    rolling_policy:
+      file_name_pattern: "file.%d{yyyy-MM-dd}-%i.gz"
+      max_file_size: 100MB
+      max_history: 30
+  access:
+    path: log/test/cheat/
+    name: access.log
+    pattern: "%msg%n"
+    rolling_policy:
+      file_name_pattern: "access.%d{yyyy-MM-dd}-%i.gz"
+      max_file_size: 100MB
+      max_history: 30
+
+
+
+test:
+  api:
+    version: "1.0.0"
+    token: "1q2w3e"

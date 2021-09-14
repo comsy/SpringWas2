@@ -94,6 +94,18 @@ project(':game') {
     }
 }
 
+project(':cheat') {
+    dependencies {
+        implementation project(':core')
+        implementation project(':core:cache-redis')
+        implementation project(':core:mapper')
+        implementation project(':common')
+        implementation project(':common:design')
+        implementation project(':domain:db')
+        implementation project(':domain:redis')
+    }
+}
+
 project(':admin') {
     dependencies {
     }
