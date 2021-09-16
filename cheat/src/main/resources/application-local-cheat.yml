@@ -14,13 +14,23 @@ spring:
             user.password: admin
           service-url: http://localhost:9180
   devtools:
+    restart:
+      enabled: true
     livereload:
       enabled: true                 # 정적 리소스에 변화가 있을 때 바로 반영한다.
   thymeleaf:
     cache: false                    #thymeleaf에 대한 캐시를 남기지 않는다. cache=false 설정(운영시는 true)
-    check-template-location: true   # templates 디렉토리에 파일이 있는지 없는지 체크, 없으면 에러를 발생시킨다.
-    prefix: classpath:/templates/
-    suffix: .html
+#    check-template-location: true   # templates 디렉토리에 파일이 있는지 없는지 체크, 없으면 에러를 발생시킨다.
+#    prefix: classpath:/templates/
+#    suffix: .html
+  security:
+    user:
+      name: admin
+      password: admin
+      roles:
+        - ROLE_ADMIN
+        - ROLE_MANAGER
+        - ROKE_USER
 
 management:
   endpoints:
@@ -33,6 +43,16 @@ management:
 
 server:
   port: 9180
+
+# DB
+datasource:
+  cheat:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://sl-db-011:3306/ZCOMSY?characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: red_database
+    password: 123qwe
+    max-lifetime: 30000 # 30000ms(30초, hikari min) 동안 사용안한 connection 풀에서 제거 - 컴투스기준 5초(wait_timeout) - 이거 높여야함.
+    leak-detection-threshold: 5000
 
 logging:
   level:

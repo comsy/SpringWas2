@@ -15,7 +15,7 @@ public enum ErrorCode {
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(),                  "Access is Denied"),
 
 
-    //== BUSINESS ERROR (1000 ~ ) ==//
+    //== BUSINESS ERROR - GAME (1000 ~ ) ==//
 
     // Member
     USER_NOT_EXIST              (1000,  "User is not exist."),
@@ -25,6 +25,8 @@ public enum ErrorCode {
     CHARACTER_NOT_EXIST         (2001,  "Character is not exist."),
     CHARACTER_INVALID           (2002,  "Coupon was already expired"),
     CHARACTER_INFO_NOT_EXIST    (2001,  "Character redis info is not exist."),
+
+    //== BUSINESS ERROR - CHEAT(90000 ~ ) ==//
 
     ;
 
