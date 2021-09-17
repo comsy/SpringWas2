@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+<!-- 페이지 소스 -->
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Index 1</h1>
+        <p class="lead">index1</p>
+        <th:block th:each="rl : ${resultList}">
+            <tr> <td th:text="${ rl }"></td> </tr>
+        </th:block> </table> </div>
+    </div>
+</div>
+<!-- 페이지 소스 -->
+
+<footer th:replace="/fragments/footer.html :: fragment-footer"></footer>
+
+</body>
+</html>
+
+
+
+<script type="application/javascript">
+    $(document).ready(function () {
+        let lbSearchType = $('#search-type');
+        let lbPlayerID = $('#playerId');
+        let lbOrderID = $('#orderId');
+
+
+        // 여기부터 개별
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //$.jgrid.defaults.width = 1500;
+        $.jgrid.defaults.responsive = true;
+        $.jgrid.defaults.styleUI = 'Bootstrap4';
+
+        const grid_packageDataList = $("#packageDataList");
+        const grid_packagePromotionList = $("#packagePromotionList");
+        var my_data = [];
+        //jqGrid껍데기 생성
+
+        grid_packageDataList.jqGrid({
+            //ajax 호출할 페이지
+            data: my_data,
+            datatype: "local",
+            height: "auto",
+            rowNum: 10,
+            rowList: [10,20,30],
+            colNames: [
+                'guid', 'exist', 'orderId', 'packageId',  'marketPid', 'purchaseTime'
+            ],
+            colModel: [
+                {name: 'guid', 					        align: "right", 	width: 100},
+                {name: 'exist', 					    align: "right", 	width: 100},
+                {name: 'orderId', 					    align: "right", 	width: 400},
+                {name: 'packageId', 					align: "right", 	width: 100},
+                {name: 'marketPid', 					align: "right", 	width: 500},
+                {name: 'purchaseTime', 					align: "right", 	width: 300},
+            ],
+            pager: "#pager",
+            viewrecords: true,
+            autowidth: true,
+            cellEdit: true,
+            cellsubmit: 'clientArray',
+            afterSaveCell: function (rowid, property, value, iRow, iCol) {
+            }
+        });
+
+
+        function ShowUserData(jsonData) {
+            const packageData      = jsonData['packageDataList'];
+            grid_packageDataList.jqGrid('clearGridData');
+            // json data 들..
+            //userData.stage = JSON.stringify(userData.stage);
+            grid_packageDataList.jqGrid('addRowData',packageData.guid, packageData);
+            grid_packageDataList.jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: "eq" });
+            grid_packageDataList.trigger("reloadGrid"); // 리로드 해줘야 초기 페이징 적용
+        }
+
+        function GetUserData(){
+            const searchType = lbSearchType.val();
+            const playerID = lbPlayerID.val();
+            const orderId = lbOrderID.val();
+            if (playerID === '') {
+                alert('플레이어 정보를 입력해주세요.');
+                $('#playerId').focus();
+                return;
+            }
+            let data = {
+                searchType: searchType,
+                playerID: playerID,
+                orderId: orderId
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/package/reqGetPackageVerifyData',
+                data: data,
+                success: function (data) {
+                    if (resultCheckError(data) === true) {
+                        return;
+                    }
+
+                    const existCount = data['existCount'];
+                    const nonExistCount = data['nonExistCount'];
+                    ShowUserData(data);
+
+                    const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+                    const timezoneData = new Date(Date.now() - timezoneOffset);
+                    let text = '';
+                    text += '[조회] 실행시간 : ';
+                    text += timezoneData.toISOString();
+                    text += '<br>';
+                    $('#noticeText').html(text);
+                    text += '조회 성공 : ' + existCount;
+                    text += '<br>';
+                    text += '조회 실패 : ' + nonExistCount;
+                    text += '<br>';
+                    $('#noticeText').html(text);
+                },
+                error(msg) {
+                    alert('데이터 처리 에러');
+                }
+            });
+        }
+
+        $("#showPackageData").click(function () {
+            GetUserData();
+        });
+    });
+
+</script>
+

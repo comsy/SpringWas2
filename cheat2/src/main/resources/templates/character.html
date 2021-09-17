@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+<!-- 페이지 소스 -->
+<form method="post" th:action="@{/character/add}" th:object="${characterAddInfo}">
+    <div class="form-group">
+        <input type="text" name="guid" placeholder="Enter Guid" th:value="*{guid}"  required="required" />
+    </div>
+    <div class="form-group">
+        <input type="text" name="characterId" placeholder="Enter CharacterId"  th:value="*{characterId}" required="required" />
+    </div>
+   <!-- <div class="form-group">
+        <label for="role">Role</label>
+        <select class="form-control " id="role" required th:field="*{role}">
+            <option hidden value="">Select a role</option>
+            <option
+                    th:each="role : ${T(nr.server.cheat.domain.entities.Role).values()}"
+                    th:text="${role}"
+                    th:value="${role}">
+            </option>
+        </select>
+    </div>-->
+    <button type="submit"> Create </button>
+</form>
+
+<body>
+<h1> Result </h1>
+<table>
+    <thead>
+    <tr>
+        <th> GUID</th>
+        <th> CharacterID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${characterDtoList}" th:with="character=${entry}">
+        <td th:text="${character.guid}"></td>
+        <td th:text="${character.characterId}"></td>
+    </tr>
+    </tbody>
+</table>-->
+
+<!--<p th:text="'response : ' + ${response}"></p>
+
+
+<table>
+    <thead>
+    <tr>
+        <th> Title</th>
+        <th> Author</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="characterDto, itemStat : *{response.characterDtoList}">
+        <td><input th:field="*{response.characterDtoList[__${itemStat.index}__]}" /></td>
+        <td><input th:field="*{response.characterDtoList[__${itemStat.index}__]}" /></td>
+    </tr>
+    </tbody>
+</table>-->
+
+<p th:text="'userInfo : ' + ${userInfo}"></p>
+<p th:text="'userInfo guid : ' + ${userInfo.guid}"></p>
+</body>
+
+<!-- 페이지 소스 -->
+
+<footer th:replace="/fragments/footer.html :: fragment-footer"></footer>
+
+</body>
+</html>
+

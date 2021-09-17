@@ -110,3 +110,13 @@ project(':admin') {
     dependencies {
     }
 }
+
+project(':cheat2'){
+    dependencies {
+        implementation project(':core')
+        implementation project(':core:cache-redis')
+        implementation project(':core:mapper')
+        implementation project(':domain:db')
+        implementation project(':domain:redis')
+    }
+}

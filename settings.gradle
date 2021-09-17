@@ -22,4 +22,5 @@ findProject(':domain:redis')?.name = 'redis'
 include 'game'
 include 'admin'
 include 'cheat'
+include 'cheat2'
 
