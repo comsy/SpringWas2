@@ -1,4 +1,4 @@
-package nr.server.common.exception;
+package nr.server.common.rest.exception;
 
 public class BusinessException extends RuntimeException {
 

@@ -1,7 +1,6 @@
-package nr.server.common.config;
+package nr.server.common.access_log;
 
 import lombok.RequiredArgsConstructor;
-import nr.server.common.interceptor.LoggingInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final LoggingInterceptor loggingInterceptor;
+    private final JsonAccessLogInterceptor jsonAccessLogInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loggingInterceptor);
+        registry.addInterceptor(jsonAccessLogInterceptor);
     }
 }

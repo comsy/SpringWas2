@@ -1,11 +1,11 @@
-package nr.server.common.api;
+package nr.server.common.rest.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.server.common.exception.ErrorCode;
+import nr.server.common.rest.exception.ErrorCode;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 

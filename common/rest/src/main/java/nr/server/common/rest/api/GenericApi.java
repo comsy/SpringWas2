@@ -1,4 +1,4 @@
-package nr.server.common.api;
+package nr.server.common.rest.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -89,6 +89,7 @@ project(':game') {
         implementation project(':core:mapper')
         implementation project(':common')
         implementation project(':common:design')
+        implementation project(':common:rest')
         implementation project(':domain:db')
         implementation project(':domain:redis')
     }
@@ -101,6 +102,7 @@ project(':cheat') {
         implementation project(':core:mapper')
         implementation project(':common')
         implementation project(':common:design')
+        implementation project(':common:rest')
         implementation project(':domain:db')
         implementation project(':domain:redis')
     }

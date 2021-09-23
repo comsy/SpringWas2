@@ -1,11 +1,11 @@
-package nr.server.common.interceptor;
+package nr.server.common.access_log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.server.common.aspect.RequestInfo;
+import nr.server.common.request_info.RequestInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class LoggingInterceptor implements HandlerInterceptor {
+public class JsonAccessLogInterceptor implements HandlerInterceptor {
 
     private final ObjectMapper objectMapper;
     private final RequestInfo requestInfo;
@@ -66,7 +66,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
         logging2.add("res", resObject);
         logging2.addProperty("time", total);
         logging2.addProperty("apiExecutionTime", requestInfo.getApiExecutionTime());
-        log.info(logging2.toString());
+        log.debug(logging2.toString());
 
         // JSON simple - 편하긴 한데 put 한 순서대로 출력이 안되서 여기선 쓰기 힘듬.
 //        JSONObject logging = new JSONObject();

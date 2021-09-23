@@ -1,4 +1,4 @@
-package nr.server.common.aspect;
+package nr.server.common.request_info;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

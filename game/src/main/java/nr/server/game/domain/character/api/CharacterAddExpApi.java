@@ -1,7 +1,7 @@
 package nr.server.game.domain.character.api;
 
 import lombok.Getter;
-import nr.server.common.api.GenericApi;
+import nr.server.common.rest.api.GenericApi;
 import nr.server.domain.db.data.character.data.CharacterDto;
 import org.springframework.http.HttpStatus;
 

@@ -1,21 +1,22 @@
-package nr.server.common.exception;
+package nr.server.common.rest.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import nr.server.common.api.ErrorResponse;
+import nr.server.common.rest.api.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.nio.file.AccessDeniedException;
 
-@RestControllerAdvice
+@RestControllerAdvice(annotations = RestController.class)
 @Slf4j
-public class GlobalExceptionHandler {
+public class GlobalRestExceptionHandler {
     /**
      *  javax.validation.Valid or @Validated 으로 binding error 발생시 발생한다.
      *  HttpMessageConverter 에서 등록한 HttpMessageConverter binding 못할경우 발생

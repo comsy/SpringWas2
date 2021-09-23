@@ -23,4 +23,6 @@ include 'game'
 include 'admin'
 include 'cheat'
 include 'cheat2'
+include 'common:rest'
+findProject(':common:rest')?.name = 'rest'
 

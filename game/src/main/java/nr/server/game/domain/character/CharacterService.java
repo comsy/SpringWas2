@@ -2,8 +2,8 @@ package nr.server.game.domain.character;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import nr.server.common.exception.BusinessException;
-import nr.server.common.exception.ErrorCode;
+import nr.server.common.rest.exception.BusinessException;
+import nr.server.common.rest.exception.ErrorCode;
 import nr.server.domain.db.data.character.data.Character;
 import nr.server.domain.db.data.character.data.CharacterDao;
 import nr.server.domain.db.data.character.data.CharacterDto;

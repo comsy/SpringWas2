@@ -1,4 +1,4 @@
-package nr.server.common.aspect;
+package nr.server.common.request_info;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

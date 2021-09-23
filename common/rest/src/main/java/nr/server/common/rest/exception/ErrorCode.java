@@ -1,4 +1,4 @@
-package nr.server.common.exception;
+package nr.server.common.rest.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
